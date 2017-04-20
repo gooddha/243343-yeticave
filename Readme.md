@@ -1,7 +1,7 @@
-# Личный проект «YetiCave» 
+# Личный проект «YetiCave»
 
 * Студент: [Andrey Adamovich](https://up.htmlacademy.ru/php/1/user/243343).
-* Наставник: `Неизвестно`.
+* Наставник: `Сергей Симонян`.
 
 ---
 
