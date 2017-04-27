@@ -13,10 +13,8 @@ $now = time();
 
 // далее нужно вычислить оставшееся время до начала следующих суток и записать его в переменную $lot_time_remaining
 $seconds_remaining = $tomorrow - $now;
-$hours_remaining = floor(($seconds_remaining / 3600));
-$minutes_remaining = round((($seconds_remaining / 3600) - $hours_remaining) * 60);
-if ($minutes_remaining < 10)
-  $minutes_remaining = "0" . $minutes_remaining;
+$hours_remaining = str_pad(floor($seconds_remaining / 3600), 2, "0", STR_PAD_LEFT);
+$minutes_remaining = ceil(str_pad(($seconds_remaining % 3600) / 60, 2, "0", STR_PAD_LEFT));
 
 $lot_time_remaining =  $hours_remaining . ":" . $minutes_remaining;
 
