@@ -135,8 +135,7 @@ $lots = [
             </select>
         </div>
         <ul class="lots__list">
-        <?php foreach ($lots as $lot): ?>
-            <?php foreach ($lot as $key => $value): ?>
+        <?php foreach ($lots as $lot): ?>            
             <li class="lots__item lot">
                 <div class="lot__image">
                     <img src="<?=$lot['img']?>" width="350" height="260" alt="Сноуборд">
@@ -154,8 +153,7 @@ $lots = [
                         </div>
                     </div>
                 </div>
-            </li>
-            <?php endforeach; ?>
+            </li>            
         <?php endforeach; ?>
         </ul>
     </section>
