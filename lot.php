@@ -17,7 +17,7 @@ function bet_time($bet_time) {
         //прошло меньше 24 часов
         if ($time_elapsed < 3600) {
           //прошло меньше часа
-          return (date("i мин. назад", $time_elapsed));
+          return (date("d.m.y i мин. назад", $time_elapsed));
         } else {
           // прошло больше часа
           return (date("H час. назад", $time_elapsed));
@@ -134,8 +134,8 @@ function bet_time($bet_time) {
                             <td class="history__price"><?=$bet['price']?> р</td>
                             <td class="history__time"><?=bet_time($bet['ts'])?></td>
                         </tr>
-                    <?php endforeach ?>
                     </table>
+                    <?php endforeach ?>
                 </div>
             </div>
         </div>
