@@ -8,19 +8,19 @@ $bets = [
     ['name' => 'Семён', 'price' => 10000, 'ts' => strtotime('last week')]
 ];
 
-function bet_time_print($bet_time) {
+function bet_time($bet_time) {
     $time_elapsed = time()-$bet_time;
     if ($time_elapsed > 86400) {
         //прошло больше 24 часов
-        print(date("d.m.y в H:i", $bet_time));
+        return (date("d.m.y в H:i", $bet_time));
     } else {
         //прошло меньше 24 часов
         if ($time_elapsed < 3600) {
           //прошло меньше часа
-          print(date("i мин. назад", $time_elapsed));
+          return (date("i мин. назад", $time_elapsed));
         } else {
           // прошло больше часа
-          print(date("H час. назад", $time_elapsed));
+          return (date("H час. назад", $time_elapsed));
         }
     }
 }
@@ -132,7 +132,7 @@ function bet_time_print($bet_time) {
                         <tr class="history__item">
                             <td class="history__name"><?=$bet['name']?></td>
                             <td class="history__price"><?=$bet['price']?> р</td>
-                            <td class="history__time"><?=bet_time_print($bet['ts'])?></td>
+                            <td class="history__time"><?=bet_time($bet['ts'])?></td>
                         </tr>
                     <?php endforeach ?>
                     </table>
