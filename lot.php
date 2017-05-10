@@ -125,17 +125,17 @@ function bet_time($bet_time) {
                     </form>
                 </div>
                 <div class="history">
-                    <h3>История ставок (<span><?=count($bets)?></span>)</h3>
+                    <h3>История ставок (<span><?= count($bets) ?></span>)</h3>
                     <!-- заполните эту таблицу данными из массива $bets-->
-                    <?php foreach ($bets as $bet): ?>
                     <table class="history__list">
+                    <?php foreach ($bets as $bet): ?>
                         <tr class="history__item">
-                            <td class="history__name"><?=$bet['name']?></td>
-                            <td class="history__price"><?=$bet['price']?> р</td>
-                            <td class="history__time"><?=bet_time($bet['ts'])?></td>
+                            <td class="history__name"><?= $bet['name'] ?></td>
+                            <td class="history__price"><?= $bet['price'] ?> р</td>
+                            <td class="history__time"><?= bet_time($bet['ts']) ?></td>
                         </tr>
-                    </table>
                     <?php endforeach ?>
+                    </table>
                 </div>
             </div>
         </div>
