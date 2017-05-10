@@ -17,10 +17,10 @@ function bet_time($bet_time) {
         //прошло меньше 24 часов
         if ($time_elapsed < 3600) {
           //прошло меньше часа
-          return (date("d.m.y i мин. назад", $time_elapsed));
+          return ($time_elapsed/60 . " мин. назад");
         } else {
           // прошло больше часа
-          return (date("H час. назад", $time_elapsed));
+          return ($time_elapsed/3600 . " час. назад");
         }
     }
 }
