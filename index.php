@@ -1,6 +1,7 @@
 <?php
 
 include 'functions.php';
+
 // устанавливаем часовой пояс в Московское время
 date_default_timezone_set('Europe/Moscow');
 
@@ -78,10 +79,13 @@ $lots = [
 </head>
 <body>
 
+<?php
+$header = include_template('header.php', []);
+$main = include_template('main.php', $lots);
+$footer = include_template('footer.php', []);
 
-
-
-
+echo $header, $main, $footer;
+?>
 
 </body>
 </html>
