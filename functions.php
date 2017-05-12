@@ -9,9 +9,22 @@ function include_template($template, $template_data) {
     }
 
     ob_start();
-    extract($template_data);
     // $lots = $template_data['lots'];
     // $categories = $template_data['categories'];
+    // $lot_time_remaining = $template_data['lot_time_remaining'];
+    extract($template_data);
+
+
+    if ($lots) {
+      print_r($lots);
+        foreach ($lots as &$lot) {
+          foreach ($lot as $key => &$value) {
+            $value = htmlspecialchars($value);
+          }
+        }
+    }
+    // $lots = htmlspecialchars($lots);
+    // print_r($lots);
     require_once $template;
     $result = ob_get_clean();
 

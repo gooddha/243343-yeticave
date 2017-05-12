@@ -81,7 +81,7 @@ $lots = [
 
 <?php
 $header = include_template('header.php', []);
-$main = include_template('main.php', ['lots' => $lots, 'categories' => $categories]);
+$main = include_template('main.php', ['lots' => $lots, 'categories' => $categories, 'lot_time_remaining' => $lot_time_remaining]);
 $footer = include_template('footer.php', []);
 
 echo $header, $main, $footer;
