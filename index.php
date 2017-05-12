@@ -7,7 +7,7 @@ $categories = ["Доски и лыжи", "Крепления", "Ботинки",
 
 //объявление массива со списком лотов
 $lots = [
-    ['name' => '2014 Rossignol District Snowboard',
+    ['name' => '<i>2014</i> Rossignol District Snowboard',
      'category' => 'Доски и лыжи',
      'price' => 10999,
      'img' => 'img/lot-1.jpg'
@@ -31,7 +31,7 @@ $lots = [
      'img' => 'img/lot-4.jpg'
     ],
 
-    ['name' => 'Куртка для сноуборда DC Mutiny Charocal',
+    ['name' => '<i>Куртка для сноуборда DC Mutiny Charocal</i>',
      'category' => 'Одежда',
      'price' => 7500,
      'img' => 'img/lot-5.jpg'

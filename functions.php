@@ -3,7 +3,6 @@ function includeTemplate($template, $template_data) {
     $template = "templates/" . $template;
     $result='';
 
-
     if (!file_exists($template)) {
         return $result;
     }
@@ -14,13 +13,27 @@ function includeTemplate($template, $template_data) {
     // $lot_time_remaining = $template_data['lot_time_remaining'];
     extract($template_data);
 
-    if ($lots) {
-        foreach ($lots as &$lot) {
-            foreach ($lot as $key => &$value) {
-                $value = htmlspecialchars($value);
+    // if ($lots) {
+    //     foreach ($lots as &$lot) {
+    //         foreach ($lot as $key => &$value) {
+    //             $value = htmlspecialchars($value);
+    //
+    //             }
+    //         }
+    //   }
+
+    if ($template_data) {
+        foreach ($template_data as &$child) {
+
+            if (is_array($child)) {
+                foreach ($child as $key => &$value) {
+                    if (is_string($value)) {
+                        $value = htmlspecialchars($value);
+                    }
                 }
             }
-      }
+        }
+    }
 
     require_once $template;
     $result = ob_get_clean();
