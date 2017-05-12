@@ -2,30 +2,6 @@
 
 include 'functions.php';
 
-// устанавливаем часовой пояс в Московское время
-date_default_timezone_set('Europe/Moscow');
-
-// записать в эту переменную оставшееся время в этом формате (ЧЧ:ММ)
-$lot_time_remaining = "00:00";
-
-// временная метка для полночи следующего дня
-$tomorrow = strtotime('tomorrow midnight');
-
-// временная метка для настоящего времени
-$now = time();
-
-// далее нужно вычислить оставшееся время до начала следующих суток и записать его в переменную $lot_time_remaining
-//вычисление значений времени
-$seconds_remaining = $tomorrow - $now;
-$hours_remaining = floor($seconds_remaining / 3600);
-$minutes_remaining = ceil(($seconds_remaining % 3600) / 60);
-
-//добавление нулей для недостающих разрядов часов и минут
-$hours_remaining = str_pad($hours_remaining, 2, "0", STR_PAD_LEFT);
-$minutes_remaining = str_pad($minutes_remaining, 2, "0", STR_PAD_LEFT);
-
-$lot_time_remaining =  $hours_remaining . ":" . $minutes_remaining;
-
 //объявление массива со списком категорий
 $categories = ["Доски и лыжи", "Крепления", "Ботинки", "Одежда", "Инструменты", "Разное"];
 
@@ -80,9 +56,9 @@ $lots = [
 <body>
 
 <?php
-$header = include_template('header.php', []);
-$main = include_template('main.php', ['lots' => $lots, 'categories' => $categories, 'lot_time_remaining' => $lot_time_remaining]);
-$footer = include_template('footer.php', []);
+$header = includeTemplate('header.php', []);
+$main = includeTemplate('main.php', ['lots' => $lots, 'categories' => $categories, 'lot_time_remaining' => $lot_time_remaining]);
+$footer = includeTemplate('footer.php', []);
 
 echo $header, $main, $footer;
 ?>
