@@ -16,9 +16,16 @@ if (isset($_GET)) {
 
 if (array_key_exists($lot_id, $lots)) {
     $current_lot = $lots["$lot_id"];
+    $main = includeTemplate('lot.php', [
+        'current_lot' => $current_lot,
+        'lots' => $lots,
+        'bets' => $bets
+    ]);
 } else {
     header("HTTP/1.1 404 Not Found");
+    $main = ("404 - Страница не найдена");
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -33,11 +40,7 @@ if (array_key_exists($lot_id, $lots)) {
 
 <?php
 $header = includeTemplate('header.php');
-$main = includeTemplate('lot.php', [
-    'current_lot' => $current_lot,
-    'lots' => $lots,
-    'bets' => $bets
-]);
+
 $footer = includeTemplate('footer.php');
 
 echo $header, $main, $footer;
