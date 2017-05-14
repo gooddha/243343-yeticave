@@ -56,9 +56,13 @@ $lots = [
 <body>
 
 <?php
-$header = includeTemplate('header.php', []);
-$main = includeTemplate('main.php', ['lots' => $lots, 'categories' => $categories, 'lot_time_remaining' => $lot_time_remaining]);
-$footer = includeTemplate('footer.php', []);
+$header = includeTemplate('header.php');
+$main = includeTemplate('main.php', [
+    'lots' => $lots,
+    'categories' => $categories,
+    'lot_time_remaining' => $lot_time_remaining
+]);
+$footer = includeTemplate('footer.php');
 
 echo $header, $main, $footer;
 ?>
