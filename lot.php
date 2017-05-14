@@ -10,12 +10,12 @@ $bets = [
     ['name' => 'Семён', 'price' => 10000, 'ts' => strtotime('last week')]
 ];
 
-if (isset($_GET)) {
+if (isset($_GET['id'])) {
     $lot_id = $_GET['id'];
 }
 
-if (array_key_exists($lot_id, $lots)) {
-    $current_lot = $lots["$lot_id"];
+if (isset($lots[$lot_id])) {
+    $current_lot = $lots[$lot_id];
     $main = includeTemplate('lot.php', [
         'current_lot' => $current_lot,
         'lots' => $lots,
