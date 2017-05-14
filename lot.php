@@ -32,12 +32,7 @@ if (isset($lots[$lot_id])) {
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <?php if ($current_lot) {
-        print "<title>" . $current_lot["name"] . "</title>";
-    } else {
-        print "<title>404 - Page not found</title>";
-    }
-    ?>
+    <title><?= isset($current_lot["name"]) ? $current_lot["name"] : "404 - Page not found" ?></title>
     <link href="css/normalize.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 </head>
