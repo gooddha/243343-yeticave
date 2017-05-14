@@ -67,4 +67,14 @@ function betTime($bet_time) {
         }
     }
 }
+
+function addFormValidation($input_array) {
+    $result = [];
+    if (isset($input_array['lot_name'])) {
+        $result['lot_name'] = $input_array['lot_name'];
+    } else {
+        $result['lot_name'] = false;
+    }
+    return $result;
+}
 ?>
