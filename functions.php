@@ -1,11 +1,5 @@
 <?php
 
-function htmlTagsFilter(&$item) {
-    if (is_string($item)) {
-        $item = htmlspecialchars($item);
-    }
-}
-
 function includeTemplate($template, $template_data = []) {
     $template = "templates/" . $template;
     $result='';
@@ -17,7 +11,12 @@ function includeTemplate($template, $template_data = []) {
     ob_start();
 
     if ($template_data) {
-        array_walk_recursive($template_data, 'htmlTagsFilter');
+        // array_walk_recursive($template_data, 'htmlTagsFilter');
+        array_walk_recursive($template_data, function(&$value) {
+            if (is_string($value)) {
+                $value = htmlspecialchars($value);
+            }
+        });
     }
 
     extract($template_data);
