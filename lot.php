@@ -23,7 +23,7 @@ if (array_key_exists($lot_id, $lots)) {
     ]);
 } else {
     header("HTTP/1.1 404 Not Found");
-    $main = ("404 - Страница не найдена");
+    $main = includeTemplate('404.php');
 }
 
 ?>
