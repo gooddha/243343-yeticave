@@ -2,17 +2,10 @@
 
 include 'functions.php';
 
-
-
-
-
-
-$form_inputs = [];
+$form = [];
 
 if (isset($_POST) {
-    $form_inputs = addformValidation($_POST);
-
-
+    $form = addformValidation($_POST);
 }
 
 

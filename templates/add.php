@@ -26,7 +26,7 @@
     <div class="form__container-two">
       <div class="form__item"> <!-- form__item--invalid -->
         <label for="lot-name">Наименование</label>
-        <input id="lot-name" type="text" name="lot-name" placeholder="Введите наименование лота" required>
+        <input id="lot-name" type="text" name="lot-name" placeholder="Введите наименование лота">
         <span class="form__error"></span>
       </div>
       <div class="form__item">
