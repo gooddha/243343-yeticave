@@ -1,5 +1,7 @@
 <?php
 
+include 'functions.php';
+include 'data/lots.php';
 // ставки пользователей, которыми надо заполнить таблицу
 $bets = [
     ['name' => 'Иван', 'price' => 11500, 'ts' => strtotime('-' . rand(1, 50) .' minute')],
@@ -8,23 +10,38 @@ $bets = [
     ['name' => 'Семён', 'price' => 10000, 'ts' => strtotime('last week')]
 ];
 
-include 'functions.php';
+$lot_id = isset($_GET['id']) ? $_GET['id'] : null;
+$current_lot = [];
+
+
+if ($lot_id !== null && isset($lots[$lot_id])) {
+    $current_lot = $lots[$lot_id];
+    $main = includeTemplate('lot.php', [
+        'current_lot' => $current_lot,
+        'lots' => $lots,
+        'bets' => $bets
+    ]);
+} else {
+    header("HTTP/1.1 404 Not Found");
+    $main = includeTemplate('404.php');
+}
+
 ?>
 
 <!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>DC Ply Mens 2016/2017 Snowboard</title>
+    <title><?= isset($current_lot["name"]) ? $current_lot["name"] : "404 - Page not found" ?></title>
     <link href="css/normalize.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 </head>
 <body>
 
 <?php
-$header = includeTemplate('header.php', []);
-$main = includeTemplate('lot.php', ['bets' => $bets]);
-$footer = includeTemplate('footer.php', []);
+$header = includeTemplate('header.php');
+
+$footer = includeTemplate('footer.php');
 
 echo $header, $main, $footer;
 ?>
