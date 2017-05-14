@@ -1,7 +1,7 @@
 <?php
 
 include 'functions.php';
-include 'lots.php';
+include 'data/lots.php';
 
 //объявление массива со списком категорий
 $categories = ["Доски и лыжи", "Крепления", "Ботинки", "Одежда", "Инструменты", "Разное"];

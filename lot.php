@@ -1,7 +1,7 @@
 <?php
 
 include 'functions.php';
-include 'lots.php';
+include 'data/lots.php';
 // ставки пользователей, которыми надо заполнить таблицу
 $bets = [
     ['name' => 'Иван', 'price' => 11500, 'ts' => strtotime('-' . rand(1, 50) .' minute')],
@@ -32,7 +32,12 @@ if (array_key_exists($lot_id, $lots)) {
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title><?= $current_lot['name'] ?></title>
+    <?php if ($current_lot) {
+        print "<title>" . $current_lot["name"] . "</title>";
+    } else {
+        print "<title>404 - Page not found</title>";
+    }
+    ?>
     <link href="css/normalize.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 </head>
