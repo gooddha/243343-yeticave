@@ -11,8 +11,7 @@ function includeTemplate($template, $template_data = []) {
     ob_start();
 
     if ($template_data) {
-        // array_walk_recursive($template_data, 'htmlTagsFilter');
-        array_walk_recursive($template_data, function(&$value) {
+        array_walk_recursive($template_data, function (&$value) {
             if (is_string($value)) {
                 $value = htmlspecialchars($value);
             }
@@ -30,9 +29,6 @@ function includeTemplate($template, $template_data = []) {
 function lotTimeRemaining() {
   // устанавливаем часовой пояс в Московское время
   date_default_timezone_set('Europe/Moscow');
-
-  // записать в эту переменную оставшееся время в этом формате (ЧЧ:ММ)
-  $lot_time_remaining = "00:00";
 
   // временная метка для полночи следующего дня
   $tomorrow = strtotime('tomorrow midnight');

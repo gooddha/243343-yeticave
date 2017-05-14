@@ -7,7 +7,7 @@ $categories = ["Доски и лыжи", "Крепления", "Ботинки",
 
 //объявление массива со списком лотов
 $lots = [
-    ['name' => '<i>2014</i> Rossignol District Snowboard',
+    ['name' => '2014 Rossignol District Snowboard',
      'category' => 'Доски и лыжи',
      'price' => 10999,
      'img' => 'img/lot-1.jpg'
@@ -31,7 +31,7 @@ $lots = [
      'img' => 'img/lot-4.jpg'
     ],
 
-    ['name' => '<i>Куртка для сноуборда DC Mutiny Charocal</i>',
+    ['name' => 'Куртка для сноуборда DC Mutiny Charocal',
      'category' => 'Одежда',
      'price' => 7500,
      'img' => 'img/lot-5.jpg'
@@ -59,8 +59,7 @@ $lots = [
 $header = includeTemplate('header.php');
 $main = includeTemplate('main.php', [
     'lots' => $lots,
-    'categories' => $categories,
-    'lot_time_remaining' => $lot_time_remaining
+    'categories' => $categories
 ]);
 $footer = includeTemplate('footer.php');
 
