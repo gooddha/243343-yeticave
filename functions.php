@@ -70,12 +70,36 @@ function betTime($bet_time) {
 
 function addFormValidation($input_array) {
     $result = [];
-    $result['lot_name'] = isset($input_array['lot_name']) ? htmlspecialchars($input_array['lot_name']) : false;
-    $result['category'] = isset($input_array['category']) ? htmlspecialchars($input_array['category']) : false;
-    $result['message'] = isset($input_array['message']) ? htmlspecialchars($input_array['message']) : false;
-    $result['lot-rate'] = isset($input_array['lot-rate']) ? htmlspecialchars($input_array['lot-rate']) : false;
-    $result['lot-step'] = isset($input_array['lot-step']) ? htmlspecialchars($input_array['lot-step']) : false;
+    $result['lot-name'] = strlen($input_array['lot-name']) > 0 ? $input_array['lot-name'] : false;
+    $result['category'] = $input_array['category'] ?? false;
+    $result['message'] = $input_array['message'] ?? false;
+    $result['lot-date'] = $input_array['lot-date'] ?? false;
+
+    if (isset($input_array['lot-rate'])) {
+        if (is_numeric($input_array['lot-rate'])) {
+            $result['price'] = $input_array['lot-rate'];
+        } else {
+            $result['price'] = 'not_num';
+          }
+        } else {
+            $result['price'] = false;
+        }
+
+    if (isset($input_array['lot-step'])) {
+        if (is_numeric($input_array['lot-step'])) {
+            $result['lot-step'] = $input_array['lot-step'];
+        } else {
+            $result['lot-step'] = 'not_num';
+        }
+    } else {
+        $result['lot-step'] = false;
     }
+
+
+
+
+
     return $result;
-}
+    }
+
 ?>

@@ -22,17 +22,25 @@
     </ul>
   </nav>
   <form class="form form--add-lot container" action="add.php" method="post"> <!-- form--invalid -->
-    <h2>Добавление лота</h2>
+    <h2>Добавление лота <br></h2>
+     <?= var_dump ($_POST); ?> <br>
+     <?= var_dump ($form); ?>
     <div class="form__container-two">
-      <div class="form__item"> <!-- form__item--invalid -->
+      <div class="form__item
+
+      <?php if (!$form['lot-name']) { print "form__item--invalid"; } ?>">
+
+            <!-- form__item--invalid -->
         <label for="lot-name">Наименование</label>
-        <input id="lot-name" type="text" name="lot-name" placeholder="Введите наименование лота">
+        <input id="lot-name" type="text" name="lot-name" placeholder="Введите наименование лота"
+          <?php if (isset($form['lot-name'])) { print("value=\"" . $form['lot-name'] . "\"" ); } ?>
+        >
         <span class="form__error"></span>
       </div>
       <div class="form__item">
         <label for="category">Категория</label>
-        <select id="category" name="category" required>
-          <option>Выберите категорию</option>
+        <select id="category" name="category">
+          <option selected>Выберите категорию</option>
           <option>Доски и лыжи</option>
           <option>Крепления</option>
           <option>Ботинки</option>
@@ -45,7 +53,7 @@
     </div>
     <div class="form__item form__item--wide">
       <label for="message">Описание</label>
-      <textarea id="message" name="message" placeholder="Напишите описание лота" required></textarea>
+      <textarea id="message" name="message" placeholder="Напишите описание лота"><?php if (isset($form['message'])) { print trim($form['message']);} ?></textarea>
       <span class="form__error"></span>
     </div>
     <div class="form__item form__item--file"> <!-- form__item--uploaded -->
@@ -66,17 +74,23 @@
     <div class="form__container-three">
       <div class="form__item form__item--small">
         <label for="lot-rate">Начальная цена</label>
-        <input id="lot-rate" type="number" name="lot-rate" placeholder="0" required>
+        <input id="lot-rate" type="number" name="lot-rate" placeholder="0"
+            <?php if (isset($form['price'])) { print("value=\"" . $form['price'] . "\"" ); } ?>
+        >
         <span class="form__error"></span>
       </div>
       <div class="form__item form__item--small">
         <label for="lot-step">Шаг ставки</label>
-        <input id="lot-step" type="number" name="lot-step" placeholder="0" required>
+        <input id="lot-step" type="number" name="lot-step" placeholder="0"
+            <?php if (isset($form['lot-step'])) { print("value=\"" . $form['lot-step'] . "\"" ); } ?>
+        >
         <span class="form__error"></span>
       </div>
       <div class="form__item">
-        <label for="lot-date">Дата заверщения</label>
-        <input class="form__input-date" id="lot-date" type="text" name="lot-date" placeholder="20.05.2017" required>
+        <label for="lot-date">Дата завершения</label>
+        <input class="form__input-date" id="lot-date" type="text" name="lot-date" placeholder="20.05.2017"
+            <?php if (isset($form['lot-date'])) { print("value=\"" . $form['lot-date'] . "\"" ); } ?>
+        >
         <span class="form__error"></span>
       </div>
     </div>

@@ -4,11 +4,14 @@ include 'functions.php';
 
 $form = [];
 
-if (isset($_POST) {
+if (isset($_POST)) {
     $form = addformValidation($_POST);
 }
 
+//проверка массива на валидность и замена шаблона на lot.php
+// $main = includeTemplate('lot.php', ['current_lot' => $form]);
 
+// $form_valid = true;
  ?>
 
 <!DOCTYPE html>
@@ -23,7 +26,8 @@ if (isset($_POST) {
 
 <?php
 $header = includeTemplate('header.php');
-$main = includeTemplate('add.php');
+$main = includeTemplate('add.php', ['form' => $form]);
+//$main = includeTemplate('lot.php', ['current_lot' => $form]);
 $footer = includeTemplate('footer.php');
 
 echo $header, $main, $footer;
