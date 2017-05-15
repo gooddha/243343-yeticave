@@ -4,6 +4,9 @@ include 'functions.php';
 $form = [];
 
 if (!empty($_POST)) {
+    foreach ($_POST as $key => $value) {
+        $_POST[$key] = strip_tags($value);
+    }
     $form = addformValidation($_POST);
 }
 

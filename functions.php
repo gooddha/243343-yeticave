@@ -73,59 +73,59 @@ function addFormValidation($input_array) {
 
     if ($input_array['lot-name']) {
         if (strlen($input_array['lot-name']) > 0) {
-            $result['lot-name'] = $input_array['lot-name'];
+            $result['values']['lot-name'] = $input_array['lot-name'];
         }
     } else {
-        $result['lot-name'] = 'error';
+        $result['errors']['lot-name'] = 'error';
     }
 
     if ($input_array['category']) {
         if ($input_array['category'] !== 'Выберите категорию') {
-            $result['category'] = $input_array['category'];
+            $result['values']['category'] = $input_array['category'];
         } else {
-            $result['category'] = 'error';
+            $result['errors']['category'] = 'error';
         }
     }
 
     if ($input_array['message']) {
         if (strlen($input_array['message']) > 0) {
-            $result['message'] = $input_array['message'];
+            $result['values']['message'] = $input_array['message'];
         }
     } else {
-        $result['message'] = 'error';
+        $result['errors']['message'] = 'error';
     }
 
     if ($_FILES['file']) {
-        $result['file'] = $_FILES['file'];
+        $result['values']['file'] = $_FILES['file'];
     } else {
-        $result['file'] = 'error';
+        $result['errors']['file'] = 'error';
     }
 
     if ($input_array['lot-rate']) {
         if (is_numeric($input_array['lot-rate'])) {
-            $result['lot-rate'] = $input_array['lot-rate'];
+            $result['values']['lot-rate'] = $input_array['lot-rate'];
         } else {
-            $result['lot-rate'] = 'not_num';
+            $result['errors']['lot-rate'] = 'not_num';
           }
         } else {
-            $result['lot-rate'] = 'error';
+            $result['errors']['lot-rate'] = 'error';
         }
 
     if ($input_array['lot-step']) {
         if (is_numeric($input_array['lot-step'])) {
-            $result['lot-step'] = $input_array['lot-step'];
+            $result['values']['lot-step'] = $input_array['lot-step'];
         } else {
-            $result['lot-step'] = 'not_num';
+            $result['errors']['lot-step'] = 'not_num';
         }
     } else {
-        $result['lot-step'] = 'error';
+        $result['errors']['lot-step'] = 'error';
     }
 
     if ($input_array['lot-date']) {
         // if (checkdate($input_array['lot-date'])) {
-        $result['lot-date'] = $input_array['lot-date'];
+        $result['values']['lot-date'] = $input_array['lot-date'];
     } else {
-        $result['lot-date'] = 'error';
+        $result['errors']['lot-date'] = 'error';
     }
 
     return $result;
