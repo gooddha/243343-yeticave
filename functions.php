@@ -70,10 +70,13 @@ function betTime($bet_time) {
 
 function addFormValidation($input_array) {
     $result = [];
-    $result['lot-name'] = strlen($input_array['lot-name']) > 0 ? $input_array['lot-name'] : false;
-    $result['category'] = $input_array['category'] ?? false;
-    $result['message'] = $input_array['message'] ?? false;
-    $result['lot-date'] = $input_array['lot-date'] ?? false;
+
+
+
+    // $result['lot-name'] = strlen($input_array['lot-name']) > 0 ? $input_array['lot-name'] : false;
+    // $result['category'] = $input_array['category'] ?? false;
+    // $result['message'] = $input_array['message'] ?? false;
+    // $result['lot-date'] = $input_array['lot-date'] ?? false;
 
     if (isset($input_array['lot-rate'])) {
         if (is_numeric($input_array['lot-rate'])) {

@@ -4,7 +4,7 @@ include 'functions.php';
 
 $form = [];
 
-if (isset($_POST)) {
+if (!empty($_POST)) {
     $form = addformValidation($_POST);
 }
 
