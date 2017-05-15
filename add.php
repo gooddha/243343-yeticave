@@ -1,7 +1,6 @@
 <?php
 
 include 'functions.php';
-
 $form = [];
 
 if (!empty($_POST)) {
@@ -27,7 +26,6 @@ if (!empty($_POST)) {
 <?php
 $header = includeTemplate('header.php');
 $main = includeTemplate('add.php', ['form' => $form]);
-//$main = includeTemplate('lot.php', ['current_lot' => $form]);
 $footer = includeTemplate('footer.php');
 
 echo $header, $main, $footer;

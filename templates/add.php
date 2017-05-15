@@ -26,37 +26,33 @@
      <?= var_dump ($_POST); ?> <br>
      <?= var_dump ($form); ?>
     <div class="form__container-two">
-      <div class="form__item
-
-      <?php if (!$form['lot-name']) { print "form__item--invalid"; } ?>">
-
-            <!-- form__item--invalid -->
+      <div class="form__item <?php if ($form['lot-name'] == 'error') { print "form__item--invalid"; } ?>">
         <label for="lot-name">Наименование</label>
         <input id="lot-name" type="text" name="lot-name" placeholder="Введите наименование лота"
-          <?php if (isset($form['lot-name'])) { print("value=\"" . $form['lot-name'] . "\"" ); } ?>
+          <?php if ($form['lot-name'] != 'error') { print("value=\"" . $form['lot-name'] . "\"" ); } ?>
         >
-        <span class="form__error"></span>
+        <span class="form__error"><?php if ($form['lot-name'] == 'error') { print "Заполните наименование"; } ?></span>
       </div>
-      <div class="form__item">
+      <div class="form__item <?php if ($form['category'] == 'error') { print "form__item--invalid"; } ?>">
         <label for="category">Категория</label>
         <select id="category" name="category">
-          <option selected>Выберите категорию</option>
-          <option>Доски и лыжи</option>
-          <option>Крепления</option>
-          <option>Ботинки</option>
-          <option>Одежда</option>
-          <option>Инструменты</option>
-          <option>Разное</option>
+          <option <?php if (!$form['category'] || $form['category'] == 'error') { print "selected"; } ?>>Выберите категорию</option>
+          <option <?php if ($form['category'] == 'Доски и лыжи') { print "selected"; } ?>>Доски и лыжи</option>
+          <option <?php if ($form['category'] == 'Крепления') { print "selected"; } ?>>Крепления</option>
+          <option <?php if ($form['category'] == 'Ботинки') { print "selected"; } ?>>Ботинки</option>
+          <option <?php if ($form['category'] == 'Одежда') { print "selected"; } ?>>Одежда</option>
+          <option <?php if ($form['category'] == 'Инструменты') { print "selected"; } ?>>Инструменты</option>
+          <option <?php if ($form['category'] == 'Разное') { print "selected"; } ?>>Разное</option>
         </select>
-        <span class="form__error"></span>
+        <span class="form__error"><?php if ($form['category'] == 'error') { print "Выберите категорию"; } ?></span>
       </div>
     </div>
-    <div class="form__item form__item--wide">
+    <div class="form__item form__item--wide <?php if ($form['message'] == 'error') { print "form__item--invalid"; } ?>">
       <label for="message">Описание</label>
-      <textarea id="message" name="message" placeholder="Напишите описание лота"><?php if (isset($form['message'])) { print trim($form['message']);} ?></textarea>
-      <span class="form__error"></span>
+      <textarea id="message" name="message" placeholder="Напишите описание лота"><?php if ($form['message'] != 'error') { print $form['message'];} ?></textarea>
+      <span class="form__error"><?php if ($form['message'] == 'error') { print "Заполните описание лота"; } ?></span>
     </div>
-    <div class="form__item form__item--file"> <!-- form__item--uploaded -->
+    <div class="form__item form__item--file  <?php if (($form['file']) && ($form['file'] !== 'error')) { print "form__item--uploaded"; } ?>"> <!-- form__item--uploaded -->
       <label>Изображение</label>
       <div class="preview">
         <button class="preview__remove" type="button">x</button>
@@ -72,26 +68,25 @@
       </div>
     </div>
     <div class="form__container-three">
-      <div class="form__item form__item--small">
+      <div class="form__item form__item--small <?php if ($form['lot-rate'] == 'error') { print "form__item--invalid"; } ?>">
         <label for="lot-rate">Начальная цена</label>
         <input id="lot-rate" type="number" name="lot-rate" placeholder="0"
-            <?php if (isset($form['price'])) { print("value=\"" . $form['price'] . "\"" ); } ?>
+            <?php if (isset($form['lot-rate'])) { print("value=\"" . $form['lot-rate'] . "\"" ); } ?>
         >
-        <span class="form__error"></span>
+        <span class="form__error"><?php if ($form['lot-rate'] == 'error') { print "Укажите начальную цену"; } ?></span>
       </div>
-      <div class="form__item form__item--small">
+      <div class="form__item form__item--small <?php if ($form['lot-step'] == 'error') { print "form__item--invalid"; } ?>">
         <label for="lot-step">Шаг ставки</label>
         <input id="lot-step" type="number" name="lot-step" placeholder="0"
             <?php if (isset($form['lot-step'])) { print("value=\"" . $form['lot-step'] . "\"" ); } ?>
         >
-        <span class="form__error"></span>
+        <span class="form__error"><?php if ($form['lot-step'] == 'error') { print "Укажите шаг ставки"; } ?></span>
       </div>
-      <div class="form__item">
+      <div class="form__item <?php if ($form['lot-date'] == 'error') { print "form__item--invalid"; } ?>">
         <label for="lot-date">Дата завершения</label>
         <input class="form__input-date" id="lot-date" type="text" name="lot-date" placeholder="20.05.2017"
-            <?php if (isset($form['lot-date'])) { print("value=\"" . $form['lot-date'] . "\"" ); } ?>
-        >
-        <span class="form__error"></span>
+            <?php if ($form['lot-date'] !== 'error') { print("value=\"" . $form['lot-date'] . "\"" ); } ?>>
+        <span class="form__error"><?php if ($form['lot-date'] == 'error') { print "Укажите дату"; } ?></span>
       </div>
     </div>
     <span class="form__error form__error--bottom">Пожалуйста, исправьте ошибки в форме.</span>

@@ -37,7 +37,7 @@ $footer = includeTemplate('footer.php');
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title><?= isset($current_lot["name"]) ? $current_lot["name"] : "404 - Page not found" ?></title>
+    <title><?= isset($current_lot["lot-name"]) ? $current_lot["lot-name"] : "404 - Page not found" ?></title>
     <link href="css/normalize.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 </head>
