@@ -1,13 +1,30 @@
 <?php
 
 include 'functions.php';
+include 'data/data.php';
+
 $form = [];
+$current_lot = [];
+
 
 if (!empty($_POST)) {
-    foreach ($_POST as $key => $value) {
-        $_POST[$key] = strip_tags($value);
-    }
+    // foreach ($_POST as $key => $value) {
+    //     $_POST[$key] = strip_tags($value);
+    // }
     $form = addformValidation($_POST);
+}
+
+$main = includeTemplate('add.php', ['form' => $form]);
+
+if (!empty($form['values']) && empty($form['errors'])) {
+    foreach ($form['values'] as $key => $value) {
+        $current_lot[$key] = $form['values'][$key];
+    }
+    $main = includeTemplate('lot.php', [
+        'current_lot' => $current_lot,
+        'bets' => $bets,
+        '_FILES' => $_FILES
+]);
 }
 
 //проверка массива на валидность и замена шаблона на lot.php
@@ -28,7 +45,7 @@ if (!empty($_POST)) {
 
 <?php
 $header = includeTemplate('header.php');
-$main = includeTemplate('add.php', ['form' => $form]);
+
 $footer = includeTemplate('footer.php');
 
 echo $header, $main, $footer;

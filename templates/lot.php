@@ -23,13 +23,17 @@
     </nav>
     <section class="lot-item container">
         <h2><?= $current_lot['lot-name'] ?></h2>
+        <?= var_dump($current_lot) ?>
         <div class="lot-item__content">
             <div class="lot-item__left">
                 <div class="lot-item__image">
                     <img src="<?= $current_lot['img'] ?>" width="730" height="548" alt="Сноуборд">
                 </div>
                 <p class="lot-item__category">Категория: <span><?= $current_lot['category'] ?></span></p>
-                <p class="lot-item__description">Легкий маневренный сноуборд, готовый дать жару в любом парке, растопив
+                <p class="lot-item__description">
+                    <?php if ($current_lot['message']) { print $current_lot['message']; }
+                    else { print "
+                    Легкий маневренный сноуборд, готовый дать жару в любом парке, растопив
                     снег
                     мощным щелчкоми четкими дугами. Стекловолокно Bi-Ax, уложенное в двух направлениях, наделяет этот
                     снаряд
@@ -38,7 +42,10 @@
                     позволит уверенно держать высокие скорости. А если к концу катального дня сил совсем не останется,
                     просто
                     посмотрите на Вашу доску и улыбнитесь, крутая графика от Шона Кливера еще никого не оставляла
-                    равнодушным.</p>
+                    равнодушным.
+                    ";
+                }?>
+                </p>
             </div>
             <div class="lot-item__right">
                 <div class="lot-item__state">
@@ -63,6 +70,7 @@
                     </form>
                 </div>
                 <div class="history">
+
                     <h3>История ставок (<span><?= count($bets) ?></span>)</h3>
                     <!-- заполните эту таблицу данными из массива $bets-->
                     <table class="history__list">

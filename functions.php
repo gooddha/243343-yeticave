@@ -95,16 +95,17 @@ function addFormValidation($input_array) {
         $result['errors']['message'] = 'error';
     }
 
-    if ($_FILES['file']) {
-        $result['values']['file'] = $_FILES['file'];
-    } else {
-        $result['errors']['file'] = 'error';
-    }
+    // if ($_FILES['file']) {
+    //     $result['values']['file'] = $_FILES['file'];
+    // } else {
+    //     $result['errors']['file'] = 'error';
+    // }
 
     if ($input_array['lot-rate']) {
         if (is_numeric($input_array['lot-rate'])) {
             $result['values']['lot-rate'] = $input_array['lot-rate'];
         } else {
+            $result['values']['lot-rate'] = $input_array['lot-rate'];
             $result['errors']['lot-rate'] = 'not_num';
           }
         } else {
@@ -115,6 +116,7 @@ function addFormValidation($input_array) {
         if (is_numeric($input_array['lot-step'])) {
             $result['values']['lot-step'] = $input_array['lot-step'];
         } else {
+            $result['values']['lot-step'] = $input_array['lot-step'];
             $result['errors']['lot-step'] = 'not_num';
         }
     } else {
@@ -126,6 +128,12 @@ function addFormValidation($input_array) {
         $result['values']['lot-date'] = $input_array['lot-date'];
     } else {
         $result['errors']['lot-date'] = 'error';
+    }
+
+    if (($timestamp = strtotime($str)) === false) {
+    echo "Строка ($str) недопустима";
+    } else {
+    echo "$str == " . date('l dS \o\f F Y h:i:s A', $timestamp);
     }
 
     return $result;
