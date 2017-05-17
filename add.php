@@ -5,13 +5,11 @@ include 'data/data.php';
 
 $form = [];
 $current_lot = [];
-
+$post_filtered = [];
 
 if (!empty($_POST)) {
-    // foreach ($_POST as $key => $value) {
-    //     $_POST[$key] = strip_tags($value);
-    // }
-    $form = addformValidation($_POST);
+    $post_filtered = postFilter($_POST);
+    $form = addformValidation($post_filtered);
 }
 
 $main = includeTemplate('add.php', ['form' => $form]);
@@ -27,10 +25,6 @@ if (!empty($form['values']) && empty($form['errors'])) {
 ]);
 }
 
-//проверка массива на валидность и замена шаблона на lot.php
-// $main = includeTemplate('lot.php', ['current_lot' => $form]);
-
-// $form_valid = true;
  ?>
 
 <!DOCTYPE html>

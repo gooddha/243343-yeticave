@@ -22,46 +22,44 @@
     </ul>
   </nav>
 
-  <form class="form form--add-lot container <?php if (!empty($form['errors'])) { print "form--invalid"; } ?> " action="add.php" method="post" enctype="multipart/form-data"> <!-- form--invalid -->
+  <form class="form form--add-lot container <?= ((!empty($form['errors'])) ? "form--invalid" : '') ?> " action="add.php" method="post" enctype="multipart/form-data">
     <h2>Добавление лота <br></h2>
      <?= var_dump ($_POST); ?> <br>
      <?= var_dump ($form); ?>
 
 <!--Наименование-->
     <div class="form__container-two">
-      <div class="form__item <?php if ($form['errors']['lot-name'] == 'error') { print "form__item--invalid"; } ?>">
+      <div class="form__item <?= ($form['errors']['lot-name'] ? "form__item--invalid" : '') ?>">
         <label for="lot-name">Наименование</label>
-        <input id="lot-name" type="text" name="lot-name" placeholder="Введите наименование лота"
-          <?php if ($form['errors']['lot-name'] != 'error') { print("value=\"" . $form['values']['lot-name'] . "\"" ); } ?>
-        >
-        <span class="form__error"><?php if ($form['errors']['lot-name'] == 'error') { print "Заполните наименование"; } ?></span>
+        <input id="lot-name" type="text" name="lot-name" placeholder="Введите наименование лота" value="<?= ($form['values']['lot-name'] ?? '' ) ?>">
+        <span class="form__error"><?= ($form['errors']['lot-name'] ?? '') ?></span>
       </div>
 
 <!--Категория-->
-      <div class="form__item <?php if ($form['errors']['category'] == 'error') { print "form__item--invalid"; } ?>">
+      <div class="form__item <?= ($form['errors']['category'] ? "form__item--invalid" : '') ?>">
         <label for="category">Категория</label>
         <select id="category" name="category">
-          <option <?php if (!$form['values']['category'] || $form['errors']['category'] == 'error') { print "selected"; } ?>>Выберите категорию</option>
-          <option <?php if ($form['values']['category'] == 'Доски и лыжи') { print "selected"; } ?>>Доски и лыжи</option>
-          <option <?php if ($form['values']['category'] == 'Крепления') { print "selected"; } ?>>Крепления</option>
-          <option <?php if ($form['values']['category'] == 'Ботинки') { print "selected"; } ?>>Ботинки</option>
-          <option <?php if ($form['values']['category'] == 'Одежда') { print "selected"; } ?>>Одежда</option>
-          <option <?php if ($form['values']['category'] == 'Инструменты') { print "selected"; } ?>>Инструменты</option>
-          <option <?php if ($form['values']['category'] == 'Разное') { print "selected"; } ?>>Разное</option>
+          <option <?= ((!$form['values']['category'] || $form['errors']['category'])) ? "selected" : '' ?>>Выберите категорию</option>
+          <option <?= (($form['values']['category'] == 'Доски и лыжи') ? "selected" : '') ?>>Доски и лыжи</option>
+          <option <?= (($form['values']['category'] == 'Крепления') ? "selected" : '') ?>>Крепления</option>
+          <option <?= (($form['values']['category'] == 'Ботинки') ? "selected" : '') ?>>Ботинки</option>
+          <option <?= (($form['values']['category'] == 'Одежда') ? "selected" : '') ?>>Одежда</option>
+          <option <?= (($form['values']['category'] == 'Инструменты') ? "selected" : '') ?>>Инструменты</option>
+          <option <?= (($form['values']['category'] == 'Разное') ? "selected" : '') ?>>Разное</option>
         </select>
-        <span class="form__error"><?php if ($form['errors']['category'] == 'error') { print "Выберите категорию"; } ?></span>
+        <span class="form__error"><?= ($form['errors']['category'] ?? '') ?></span>
       </div>
     </div>
 
 <!--Описание-->
-    <div class="form__item form__item--wide <?php if ($form['errors']['message'] == 'error') { print "form__item--invalid"; } ?>">
+    <div class="form__item form__item--wide <?= (($form['errors']['message']) ? "form__item--invalid" : '') ?>">
       <label for="message">Описание</label>
-      <textarea id="message" name="message" placeholder="Напишите описание лота"><?php if ($form['errors']['message'] != 'error') { print $form['values']['message'];} ?></textarea>
-      <span class="form__error"><?php if ($form['errors']['message'] == 'error') { print "Заполните описание лота"; } ?></span>
+      <textarea id="message" name="message" placeholder="Напишите описание лота"><?= ($form['values']['message'] ?? '') ?></textarea>
+      <span class="form__error"><?= ($form['errors']['message'] ?? '') ?></span>
     </div>
 
 <!--Изображение-->
-    <div class="form__item form__item--file  <?php if (($form['values']['file']) && ($form['errors']['file'] !== 'error')) { print "form__item--uploaded"; } ?>"> <!-- form__item--uploaded -->
+    <div class="form__item form__item--file"> <!-- form__item--uploaded -->
       <label>Изображение</label>
       <div class="preview">
         <button class="preview__remove" type="button">x</button>
@@ -79,41 +77,24 @@
 
 <!--Начальная цена -->
     <div class="form__container-three">
-      <div class="form__item form__item--small <?php if ($form['errors']['lot-rate'] == 'error' || $form['errors']['lot-rate'] == 'not_num' ) { print "form__item--invalid"; } ?>">
+      <div class="form__item form__item--small <?= (($form['errors']['lot-rate']) ? "form__item--invalid" : '') ?>">
         <label for="lot-rate">Начальная цена</label>
-        <input id="lot-rate" type="text" name="lot-rate" placeholder="0"
-            <?php if ($form['values']['lot-rate']) { print("value=\"" . $form['values']['lot-rate'] . "\"" ); } ?>
-        >
-        <span class="form__error">
-            <?php if ($form['errors']['lot-rate'] == 'error') { print "Укажите начальную цену"; }
-                  if ($form['errors']['lot-rate'] == 'not_num') { print "Введите числовое значение"; }
-            ?>
-        </span>
+        <input id="lot-rate" type="text" name="lot-rate" placeholder="0" value="<?= ($form['values']['lot-rate'] ?? '' ) ?>">
+        <span class="form__error"><?= ($form['errors']['lot-rate'] ?? '') ?></span>
       </div>
 
 <!--Шаг ставки -->
-      <div class="form__item form__item--small <?php if ($form['errors']['lot-step'] == 'error' || $form['errors']['lot-step'] == 'not_num' ) { print "form__item--invalid"; } ?>">
+      <div class="form__item form__item--small <?= (($form['errors']['lot-step']) ? "form__item--invalid" : '') ?>">
         <label for="lot-step">Шаг ставки</label>
-        <input id="lot-step" type="text" name="lot-step" placeholder="0"
-            <?php if ($form['values']['lot-step']) { print("value=\"" . $form['values']['lot-step'] . "\"" ); } ?>
-        >
-        <span class="form__error">
-            <?php if ($form['errors']['lot-step'] == 'error') { print "Укажите шаг ставки"; }
-                  if ($form['errors']['lot-step'] == 'not_num') { print "Введите числовое значение"; }
-            ?>
-        </span>
+        <input id="lot-step" type="text" name="lot-step" placeholder="0" value="<?= ($form['values']['lot-step'] ?? '') ?>">
+        <span class="form__error"><?= ($form['errors']['lot-step'] ?? '') ?></span>
       </div>
 
 <!--Дата -->
-      <div class="form__item <?php if ($form['errors']['lot-date'] == 'error') { print "form__item--invalid"; } ?>">
+      <div class="form__item <?= (($form['errors']['lot-date']) ? "form__item--invalid" : '') ?>">
         <label for="lot-date">Дата завершения</label>
-        <input class="form__input-date" id="lot-date" type="text" name="lot-date" placeholder="20.05.2017"
-            <?php if ($form['errors']['lot-date'] !== 'error') { print("value=\"" . $form['values']['lot-date'] . "\"" ); } ?>>
-        <span class="form__error">
-            <?php if ($form['errors']['lot-date'] == 'error') { print "Укажите дату"; }
-                if ($form['errors']['lot-date'] == 'not_date') { print "Введите корректное значение даты"; }
-            ?>
-        </span>
+        <input class="form__input-date" id="lot-date" type="text" name="lot-date" placeholder="20.05.2017" value="<?= ($form['values']['lot-date'] ?? '') ?>">
+        <span class="form__error"><?= ($form['errors']['lot-date'] ?? '') ?></span>
       </div>
     </div>
 
