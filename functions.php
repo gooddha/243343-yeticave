@@ -76,8 +76,6 @@ function postFilter($array) {
 }
 
 function addFormValidation($input_array) {
-
-
     $result = [];
 
     if ($input_array['lot-name']) {

@@ -23,7 +23,8 @@
     </nav>
     <section class="lot-item container">
         <h2><?= $current_lot['lot-name'] ?></h2>
-        <?= var_dump($current_lot) ?>
+        <?= var_dump($current_lot) ?><br>
+        <?= var_dump($_FILES) ?>
         <div class="lot-item__content">
             <div class="lot-item__left">
                 <div class="lot-item__image">

@@ -8,8 +8,18 @@ $current_lot = [];
 $post_filtered = [];
 
 if (!empty($_POST)) {
-    $post_filtered = postFilter($_POST);
-    $form = addformValidation($post_filtered);
+    // $post_filtered = postFilter($_POST);
+    $form = addformValidation(postFilter($_POST));
+}
+
+if (!empty($_FILES)) {
+    $uploaddir = 'uploads/';
+    $uploadfile = $uploaddir . basename($_FILES['file']['name']);
+    move_uploaded_file($_FILES['file']['tmp_name'], $uploadfile);
+    $current_lot['img'] = $uploadfile;
+    // if (is_uploaded_file($_FILES['file']['name'])) {
+    //     $file = $_FILES['file']['name']
+    //     move_uploaded_file()
 }
 
 $main = includeTemplate('add.php', ['form' => $form]);

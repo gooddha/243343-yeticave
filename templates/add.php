@@ -25,6 +25,7 @@
   <form class="form form--add-lot container <?= ((!empty($form['errors'])) ? "form--invalid" : '') ?> " action="add.php" method="post" enctype="multipart/form-data">
     <h2>Добавление лота <br></h2>
      <?= var_dump ($_POST); ?> <br>
+     <?= var_dump ($_FILES); ?> <br>
      <?= var_dump ($form); ?>
 
 <!--Наименование-->
