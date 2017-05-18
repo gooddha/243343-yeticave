@@ -30,8 +30,7 @@
                 </div>
                 <p class="lot-item__category">Категория: <span><?= $current_lot['category'] ?></span></p>
                 <p class="lot-item__description">
-                    <?php if ($current_lot['message']) { print $current_lot['message']; }
-                    else { print "
+                    <?= ($current_lot['message']) ?? "
                     Легкий маневренный сноуборд, готовый дать жару в любом парке, растопив
                     снег
                     мощным щелчкоми четкими дугами. Стекловолокно Bi-Ax, уложенное в двух направлениях, наделяет этот
@@ -42,8 +41,7 @@
                     просто
                     посмотрите на Вашу доску и улыбнитесь, крутая графика от Шона Кливера еще никого не оставляла
                     равнодушным.
-                    ";
-                }?>
+                    " ?>
                 </p>
             </div>
             <div class="lot-item__right">
