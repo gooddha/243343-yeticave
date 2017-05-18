@@ -69,19 +69,19 @@ function betTime($bet_time) {
 }
 
 function postFilter($array) {
+    $result = [];
+
     foreach ($array as $key => $value) {
-        $array[$key] =  strip_tags($value);
+        $result[$key] =  strip_tags($value);
     }
-    return $array;
+    return $result;
 }
 
 function addFormValidation($input_array) {
     $result = [];
 
-    if ($input_array['lot-name']) {
-        if (strlen($input_array['lot-name']) > 0) {
-            $result['values']['lot-name'] = $input_array['lot-name'];
-        }
+    if (!empty($input_array['lot-name'])) {
+        $result['values']['lot-name'] = $input_array['lot-name'];
     } else {
         $result['errors']['lot-name'] = 'Заполните наименование';
     }
@@ -94,26 +94,24 @@ function addFormValidation($input_array) {
         }
     }
 
-    if ($input_array['message']) {
-        if (strlen($input_array['message']) > 0) {
-            $result['values']['message'] = $input_array['message'];
-        }
+    if (!empty($input_array['message'])) {
+        $result['values']['message'] = $input_array['message'];
     } else {
         $result['errors']['message'] = 'Заполните описание лота';
     }
 
-    if ($input_array['lot-rate']) {
+    if (!empty($input_array['lot-rate'])) {
         if (is_numeric($input_array['lot-rate'])) {
             $result['values']['lot-rate'] = $input_array['lot-rate'];
         } else {
             $result['values']['lot-rate'] = $input_array['lot-rate'];
             $result['errors']['lot-rate'] = 'Введите числовое значение';
-          }
-        } else {
-            $result['errors']['lot-rate'] = 'Укажите начальную цену';
         }
+    } else {
+            $result['errors']['lot-rate'] = 'Укажите начальную цену';
+    }
 
-    if ($input_array['lot-step']) {
+    if (!empty($input_array['lot-step'])) {
         if (is_numeric($input_array['lot-step'])) {
             $result['values']['lot-step'] = $input_array['lot-step'];
         } else {
@@ -125,7 +123,7 @@ function addFormValidation($input_array) {
     }
 
 
-    if ($input_array['lot-date']) {
+    if (!empty($input_array['lot-date'])) {
         if (($timestamp = strtotime($input_array['lot-date'])) === false) {
             $result['errors']['lot-date'] = 'Введите корректное значение даты';
             $result['values']['lot-date'] = $input_array['lot-date'];
