@@ -10,9 +10,9 @@ if (!empty($_POST)) {
     $form = addformValidation(postFilter($_POST));
 }
 
-if (!empty($_FILES['file'])) {
-    $uploaddir = 'uploads/';
-    $uploadfile = $uploaddir . basename($_FILES['file']['name']);
+if (!empty($_FILES['file']['name'])) {
+    $uploaddir = 'img/';
+    $uploadfile = $uploaddir . basename('img-' . rand(10000, 99999) . '.jpg');
     move_uploaded_file($_FILES['file']['tmp_name'], $uploadfile);
     $current_lot['img'] = $uploadfile;
 }

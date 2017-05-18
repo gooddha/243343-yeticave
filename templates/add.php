@@ -22,19 +22,19 @@
     </ul>
   </nav>
 
-  <form class="form form--add-lot container <?= ((!empty($form['errors'])) ? "form--invalid" : '') ?> " action="add.php" method="post" enctype="multipart/form-data">
+  <form class="form form--add-lot container <?= !empty($form['errors']) ? "form--invalid" : '' ?> " action="add.php" method="post" enctype="multipart/form-data">
     <h2>Добавление лота <br></h2>
 
 <!--Наименование-->
     <div class="form__container-two">
-      <div class="form__item <?= ($form['errors']['lot-name'] ? "form__item--invalid" : '') ?>">
+      <div class="form__item <?= !empty($form['errors']['lot-name']) ? "form__item--invalid" : '' ?>">
         <label for="lot-name">Наименование</label>
         <input id="lot-name" type="text" name="lot-name" placeholder="Введите наименование лота" value="<?= ($form['values']['lot-name'] ?? '' ) ?>" required>
         <span class="form__error"><?= ($form['errors']['lot-name'] ?? '') ?></span>
       </div>
 
 <!--Категория-->
-      <div class="form__item <?= ($form['errors']['category'] ? "form__item--invalid" : '') ?>">
+      <div class="form__item <?= !empty($form['errors']['category']) ? "form__item--invalid" : '' ?>">
         <label for="category">Категория</label>
         <select id="category" name="category">
           <option <?= ((!$form['values']['category'] || $form['errors']['category'])) ? "selected" : '' ?>>Выберите категорию</option>
@@ -50,7 +50,7 @@
     </div>
 
 <!--Описание-->
-    <div class="form__item form__item--wide <?= (($form['errors']['message']) ? "form__item--invalid" : '') ?>">
+    <div class="form__item form__item--wide <?= !empty($form['errors']['message']) ? "form__item--invalid" : '' ?>">
       <label for="message">Описание</label>
       <textarea id="message" name="message" placeholder="Напишите описание лота" required><?= ($form['values']['message'] ?? '') ?></textarea>
       <span class="form__error"><?= ($form['errors']['message'] ?? '') ?></span>
@@ -75,21 +75,21 @@
 
 <!--Начальная цена -->
     <div class="form__container-three">
-      <div class="form__item form__item--small <?= (($form['errors']['lot-rate']) ? "form__item--invalid" : '') ?>">
+      <div class="form__item form__item--small <?= !empty($form['errors']['lot-rate']) ? "form__item--invalid" : '' ?>">
         <label for="lot-rate">Начальная цена</label>
         <input id="lot-rate" type="number" name="lot-rate" placeholder="0" value="<?= ($form['values']['lot-rate'] ?? '' ) ?>" required>
         <span class="form__error"><?= ($form['errors']['lot-rate'] ?? '') ?></span>
       </div>
 
 <!--Шаг ставки -->
-      <div class="form__item form__item--small <?= (($form['errors']['lot-step']) ? "form__item--invalid" : '') ?>">
+      <div class="form__item form__item--small <?= !empty($form['errors']['lot-step']) ? "form__item--invalid" : '' ?>">
         <label for="lot-step">Шаг ставки</label>
         <input id="lot-step" type="number" name="lot-step" placeholder="0" value="<?= ($form['values']['lot-step'] ?? '') ?>" required>
         <span class="form__error"><?= ($form['errors']['lot-step'] ?? '') ?></span>
       </div>
 
 <!--Дата -->
-      <div class="form__item <?= (($form['errors']['lot-date']) ? "form__item--invalid" : '') ?>">
+      <div class="form__item <?= !empty($form['errors']['lot-date']) ? "form__item--invalid" : '' ?>">
         <label for="lot-date">Дата завершения</label>
         <input class="form__input-date" id="lot-date" type="text" name="lot-date" placeholder="20.05.2017" value="<?= ($form['values']['lot-date'] ?? '') ?>" required>
         <span class="form__error"><?= ($form['errors']['lot-date'] ?? '') ?></span>
