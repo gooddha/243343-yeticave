@@ -15,7 +15,11 @@ if (!empty($_FILES['file']['name'])) {
     $uploadfile = $uploaddir . 'img-' . rand(10000, 99999) . '.jpg';
     move_uploaded_file($_FILES['file']['tmp_name'], $uploadfile);
     $current_lot['img'] = $uploadfile;
+} else {
+    $current_lot['img'] = '';
 }
+
+
 
 $main = includeTemplate('add.php', ['form' => $form]);
 
