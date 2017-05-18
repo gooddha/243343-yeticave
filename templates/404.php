@@ -21,7 +21,7 @@
             </li>
         </ul>
     </nav>
-    <section class="lot-item container" style="margin-top: 5%; margin-bottom: 25%;">
-        <h1 style="font-size: 3em;">404 - Запрошенная страница не существует</h1>
+    <section class="lot-item container" style=" margin-bottom: 25%;">
+        <h1 style="line-height: 1.5em; font-size: 3em; text-align: center;">404 – Запрошенная страница не существует<br> : (</h1>
     </section>
 </main>

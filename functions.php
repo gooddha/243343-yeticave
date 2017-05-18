@@ -67,4 +67,75 @@ function betTime($bet_time) {
         }
     }
 }
+
+function postFilter($array) {
+    $result = [];
+
+    foreach ($array as $key => $value) {
+        $result[$key] =  strip_tags($value);
+    }
+    return $result;
+}
+
+function addFormValidation($input_array) {
+    $result = [];
+
+    if (!empty($input_array['lot-name'])) {
+        $result['values']['lot-name'] = $input_array['lot-name'];
+    } else {
+        $result['errors']['lot-name'] = 'Заполните наименование';
+    }
+
+    if ($input_array['category']) {
+        if ($input_array['category'] !== 'Выберите категорию') {
+            $result['values']['category'] = $input_array['category'];
+        } else {
+            $result['errors']['category'] = 'Выберите категорию';
+        }
+    }
+
+    if (!empty($input_array['message'])) {
+        $result['values']['message'] = $input_array['message'];
+    } else {
+        $result['errors']['message'] = 'Заполните описание лота';
+    }
+
+    if (!empty($input_array['lot-rate'])) {
+        if (is_numeric($input_array['lot-rate'])) {
+            $result['values']['lot-rate'] = $input_array['lot-rate'];
+        } else {
+            $result['values']['lot-rate'] = $input_array['lot-rate'];
+            $result['errors']['lot-rate'] = 'Введите числовое значение';
+        }
+    } else {
+            $result['errors']['lot-rate'] = 'Укажите начальную цену';
+    }
+
+    if (!empty($input_array['lot-step'])) {
+        if (is_numeric($input_array['lot-step'])) {
+            $result['values']['lot-step'] = $input_array['lot-step'];
+        } else {
+            $result['values']['lot-step'] = $input_array['lot-step'];
+            $result['errors']['lot-step'] = 'Введите числовое значение';
+        }
+    } else {
+        $result['errors']['lot-step'] = 'Укажите шаг ставки';
+    }
+
+
+    if (!empty($input_array['lot-date'])) {
+        if (($timestamp = strtotime($input_array['lot-date'])) === false) {
+            $result['errors']['lot-date'] = 'Введите корректное значение даты';
+            $result['values']['lot-date'] = $input_array['lot-date'];
+        } else {
+            $result['values']['lot-date'] = date('d.m.Y', $timestamp);
+        }
+    } else {
+        $result['errors']['lot-date'] = 'Укажите дату завершения';
+        $result['values']['lot-date'] = $input_array['lot-date'];
+    }
+
+    return $result;
+    }
+
 ?>
