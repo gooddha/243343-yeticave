@@ -136,6 +136,41 @@ function addFormValidation($input_array) {
     }
 
     return $result;
+}
+
+function loginFormValidation($input_array, $users) {
+    $result = [];
+
+    if (!empty($input_array['email'])) {
+        if (filter_var($input_array['email'], FILTER_VALIDATE_EMAIL)) {
+            foreach ($users as $value) {
+                if ($input_array['email'] == $value['email']) {
+                    $result['values']['email'] = $input_array['email'];
+                } else {
+                    $result['values']['email'] = $input_array['email'];
+                    $result['errors']['email'] = 'Введённый email не зарегистрирован';
+                }
+            }
+        } else {
+            $result['values']['email'] = $input_array['email'];
+            $result['errors']['email'] = 'Введите корректный email';
+        }
+    } else {
+        $result['errors']['email'] = 'Введите email';
     }
+
+    if (!empty($input_array['password'])) {
+        if (password_verify($input_array['password'], $users['password'])) {
+            $result['values']['password'] = $input_array['password'];
+        } else {
+            $result['values']['password'] = $input_array['password'];
+            $result['errors']['password'] = 'Введён неверный пароль';
+        }
+    } else {
+        $result['errors']['password'] = 'Введите пароль';
+    }
+
+    return $result;
+}
 
 ?>
