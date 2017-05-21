@@ -1,4 +1,5 @@
 <?php
+session_start();
 
 include 'functions.php';
 include 'data/data.php';
@@ -31,6 +32,11 @@ if (!empty($form['values']) && empty($form['errors'])) {
         'current_lot' => $current_lot,
         'bets' => $bets
 ]);
+}
+
+if (!isset($_SESSION['user'])) {
+    header("HTTP/1.0 403 Forbidden");
+    $main = includeTemplate('403.php');
 }
 
  ?>
