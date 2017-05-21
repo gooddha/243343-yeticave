@@ -13,7 +13,6 @@
         <?php if (isset($_SESSION['user'])): ?>
         <a class="main-header__add-lot button" href="add.php">Добавить лот</a>
         <nav class="user-menu">
-
             <div class="user-menu__image">
                 <img src="../img/user.jpg" width="40" height="40" alt="Пользователь">
             </div>
@@ -21,16 +20,18 @@
                 <p><?= $_SESSION['user']['name'] ?></p>
                 <a href="logout.php">Выйти</a>
             </div>
+        </nav>
 
         <?php else: ?>
-            <ul class="user-menu__list">
-                <li class="user-menu__item">
-                    <a href="#">Регистрация</a>
-                </li>
-                <li class="user-menu__item">
-                    <a href="login.php">Вход</a>
-                </li>
-            </ul>
+        <nav class="user-menu">
+        <ul class="user-menu__list">
+            <li class="user-menu__item">
+                <a href="#">Регистрация</a>
+            </li>
+            <li class="user-menu__item">
+                <a href="login.php">Вход</a>
+            </li>
+        </ul>
         </nav>
         <?php endif ?>
     </div>
