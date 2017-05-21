@@ -4,11 +4,11 @@ session_start();
 include 'functions.php';
 include 'data/data.php';
 
-if (!isset($_SESSION['user'])) {
+if (isset($_SESSION['user'])) {
+    $main = includeTemplate('add.php', ['form' => $form]);
+} else {
     header("HTTP/1.0 403 Forbidden");
     $main = includeTemplate('403.php');
-} else {
-    $main = includeTemplate('add.php', ['form' => $form]);
 }
 
 

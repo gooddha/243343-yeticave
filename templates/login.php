@@ -32,7 +32,7 @@
 
     <div class="form__item form__item--last <?= !empty($form['errors']['password']) ? "form__item--invalid" : '' ?>">
       <label for="password">Пароль*</label>
-      <input id="password" type="text" name="password" placeholder="Введите пароль" value="<?= ($form['values']['password'] ?? '' ) ?>" >
+      <input id="password" type="password" name="password" placeholder="Введите пароль" value="<?= ($form['values']['password'] ?? '' ) ?>" >
       <span class="form__error"><?= ($form['errors']['password'] ?? '') ?></span>
     </div>
 

@@ -31,7 +31,7 @@
                     <a href="login.php">Вход</a>
                 </li>
             </ul>
-        <?php endif ?>
         </nav>
+        <?php endif ?>
     </div>
 </header>
