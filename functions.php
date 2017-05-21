@@ -140,37 +140,72 @@ function addFormValidation($input_array) {
 
 function loginFormValidation($input_array, $users) {
     $result = [];
+    $userKey = '';
+    $result['values']['email'] = $input_array['email'];
+    $result['values']['password'] = $input_array['password'];
 
-    if (!empty($input_array['email'])) {
+    if (empty($input_array['email'])) {
+        $result['errors']['email'] = 'Введите email';
+    } else  {
         if (filter_var($input_array['email'], FILTER_VALIDATE_EMAIL)) {
-            foreach ($users as $value) {
-                if ($input_array['email'] == $value['email']) {
-                    $result['values']['email'] = $input_array['email'];
+            if ($userKey = findUser($input_array['email'], $users)) {
+                unset($result['errors']['email']);
+                if (checkPassword($input_array['password'], $userKey, $users)) {
+                    unset($result['errors']['password']);
                 } else {
-                    $result['values']['email'] = $input_array['email'];
-                    $result['errors']['email'] = 'Введённый email не зарегистрирован';
+                    $result['errors']['password'] = 'Неверный пароль';
                 }
+            } else {
+                $result['errors']['email'] = 'Логин не существует';
             }
+//            foreach ($users as $value) {
+//                if ($input_array['email'] == $value['email']) {
+//                    $result['values']['email'] = $input_array['email'];
+//                    unset($result['errors']['email']);
+//                        if (!empty($input_array['password'])) {
+//                            if (password_verify($input_array['password'], $value['password'])) {
+//                                $result['values']['password'] = $input_array['password'];
+//                                $result['errors']['password'] = 'Пароль верный';
+//                            } else {
+//                                $result['values']['password'] = $input_array['password'];
+//                                $result['errors']['password'] = 'Введён неверный пароль';
+//                            }
+//                        } else {
+//                            $result['errors']['password'] = 'Введите пароль';
+//                        }
+//
+//                    break;
+//                } else {
+//                    $result['values']['email'] = $input_array['email'];
+//                    $result['errors']['email'] = 'Введённый email не зарегистрирован';
+//                }
+//            }
         } else {
             $result['values']['email'] = $input_array['email'];
             $result['errors']['email'] = 'Введите корректный email';
         }
-    } else {
-        $result['errors']['email'] = 'Введите email';
     }
 
-    if (!empty($input_array['password'])) {
-        if (password_verify($input_array['password'], $users['password'])) {
-            $result['values']['password'] = $input_array['password'];
-        } else {
-            $result['values']['password'] = $input_array['password'];
-            $result['errors']['password'] = 'Введён неверный пароль';
-        }
-    } else {
+    if (empty($input_array['password'])) {
         $result['errors']['password'] = 'Введите пароль';
     }
 
     return $result;
 }
 
+function findUser($email, $users) {
+    if(in_array($email, array_column($users, 'email'))) {
+        $emails = array_column($users, 'email');
+        $key = array_search($email, $emails);
+        return $key;
+    }
+}
+
+function checkPassword($password, $key, $users) {
+    if (password_verify($password, $users[$key]['password'])) {
+        return true;
+    } else {
+        return false;
+    }
+}
 ?>

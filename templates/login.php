@@ -23,13 +23,7 @@
   </nav>
 
   <form class="form container <?= !empty($form['errors']) ? "form--invalid" : '' ?>" action="login.php" method="post"> <!-- form--invalid -->
-    <h2>Вход</h2>
-    <strong>$_POST:</strong> <?= var_dump($_POST) ?>
-    <br>
-    <strong>$form:</strong> <?= var_dump($form) ?>
-    <br>
-    <strong>$users:</strong> <?= var_dump($users) ?>
-    <br><br>
+
 
     <div class="form__item <?= !empty($form['errors']['email']) ? "form__item--invalid" : '' ?>"> <!-- form__item--invalid -->
       <label for="email">E-mail*</label>
