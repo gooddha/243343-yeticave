@@ -10,10 +10,10 @@
             <input type="search" name="search" placeholder="Поиск лота">
             <input class="main-header__search-btn" type="submit" name="find" value="Найти">
         </form>
-
-        <a class="main-header__add-lot button" href="add.php">Добавить лот</a>
-
         <?php if (isset($_SESSION['user'])): ?>
+        <a class="main-header__add-lot button" href="add.php">Добавить лот</a>
+        <nav class="user-menu">
+
             <div class="user-menu__image">
                 <img src="../img/user.jpg" width="40" height="40" alt="Пользователь">
             </div>
@@ -32,6 +32,6 @@
                 </li>
             </ul>
         <?php endif ?>
-
+        </nav>
     </div>
 </header>

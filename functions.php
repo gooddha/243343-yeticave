@@ -149,7 +149,7 @@ function loginFormValidation($input_array, $users) {
 
             if ($user = findUser($input_array['email'], $users)) {
 
-                if (checkPassword($input_array['password'], $user)) {
+                if (password_verify($input_array['password'], $user['password'])) {
                     $_SESSION['user'] = $user;
                     header("Location: /index.php");
 
@@ -179,14 +179,6 @@ function findUser($email, $users) {
         return $users[$key];
     } else {
         return null;
-    }
-}
-
-function checkPassword($password, $user) {
-    if (password_verify($password, $user['password'])) {
-        return true;
-    } else {
-        return false;
     }
 }
 

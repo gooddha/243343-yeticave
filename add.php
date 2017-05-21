@@ -4,6 +4,14 @@ session_start();
 include 'functions.php';
 include 'data/data.php';
 
+if (!isset($_SESSION['user'])) {
+    header("HTTP/1.0 403 Forbidden");
+    $main = includeTemplate('403.php');
+} else {
+    $main = includeTemplate('add.php', ['form' => $form]);
+}
+
+
 $form = [];
 $current_lot = [];
 
@@ -20,10 +28,6 @@ if (!empty($_FILES['file']['name'])) {
     $current_lot['img'] = '';
 }
 
-
-
-$main = includeTemplate('add.php', ['form' => $form]);
-
 if (!empty($form['values']) && empty($form['errors'])) {
     foreach ($form['values'] as $key => $value) {
         $current_lot[$key] = $form['values'][$key];
@@ -32,11 +36,6 @@ if (!empty($form['values']) && empty($form['errors'])) {
         'current_lot' => $current_lot,
         'bets' => $bets
 ]);
-}
-
-if (!isset($_SESSION['user'])) {
-    header("HTTP/1.0 403 Forbidden");
-    $main = includeTemplate('403.php');
 }
 
  ?>
