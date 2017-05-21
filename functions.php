@@ -139,7 +139,6 @@ function addFormValidation($input_array) {
 
 function loginFormValidation($input_array, $users) {
     $result = [];
-    $user_key = '';
     $result['values']['email'] = $input_array['email'];
     $result['values']['password'] = $input_array['password'];
 
@@ -148,9 +147,9 @@ function loginFormValidation($input_array, $users) {
     } else  {
         if (filter_var($input_array['email'], FILTER_VALIDATE_EMAIL)) {
 
-            if ($user_key = findUser($input_array['email'], $users)) {
+            if ($user = findUser($input_array['email'], $users)) {
 
-                if ($user = checkPassword($input_array['password'], $user_key, $users)) {
+                if (checkPassword($input_array['password'], $user)) {
                     $_SESSION['user'] = $user;
                     header("Location: /index.php");
 
@@ -162,7 +161,6 @@ function loginFormValidation($input_array, $users) {
             }
 
         } else {
-            $result['values']['email'] = $input_array['email'];
             $result['errors']['email'] = 'Введите корректный email';
         }
     }
@@ -175,16 +173,18 @@ function loginFormValidation($input_array, $users) {
 }
 
 function findUser($email, $users) {
-    if(in_array($email, array_column($users, 'email'))) {
-        $emails = array_column($users, 'email');
+    $emails = array_column($users, 'email');
+    if(in_array($email, $emails)) {
         $key = array_search($email, $emails);
-        return $key;
+        return $users[$key];
+    } else {
+        return null;
     }
 }
 
-function checkPassword($password, $key, $users) {
-    if (password_verify($password, $users[$key]['password'])) {
-        return $users[$key];
+function checkPassword($password, $user) {
+    if (password_verify($password, $user['password'])) {
+        return true;
     } else {
         return false;
     }

@@ -9,7 +9,7 @@ include 'data/userdata.php';
 $form = [];
 
 if (!empty($_POST)) {
-    $form = loginformValidation(postFilter($_POST), $users);
+    $form = loginformValidation($_POST, $users);
 }
 
 $main = includeTemplate('login.php', [
