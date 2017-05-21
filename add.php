@@ -1,38 +1,42 @@
 <?php
+session_start();
 
 include 'functions.php';
 include 'data/data.php';
 
-$form = [];
-$current_lot = [];
+if (!isset($_SESSION['user'])) {
+    header("HTTP/1.0 403 Forbidden");
+    $main = includeTemplate('403.php');
 
-if (!empty($_POST)) {
-    $form = addformValidation(postFilter($_POST));
-}
-
-if (!empty($_FILES['file']['name'])) {
-    $uploaddir = 'img/';
-    $uploadfile = $uploaddir . 'img-' . rand(10000, 99999) . '.jpg';
-    move_uploaded_file($_FILES['file']['tmp_name'], $uploadfile);
-    $current_lot['img'] = $uploadfile;
 } else {
-    $current_lot['img'] = '';
-}
+    $form = [];
+    $current_lot = [];
 
-
-
-$main = includeTemplate('add.php', ['form' => $form]);
-
-if (!empty($form['values']) && empty($form['errors'])) {
-    foreach ($form['values'] as $key => $value) {
-        $current_lot[$key] = $form['values'][$key];
+    if (!empty($_POST)) {
+        $form = addformValidation(postFilter($_POST));
     }
-    $main = includeTemplate('lot.php', [
-        'current_lot' => $current_lot,
-        'bets' => $bets
-]);
-}
 
+    $main = includeTemplate('add.php', ['form' => $form]);
+
+    if (!empty($_FILES['file']['name'])) {
+        $uploaddir = 'img/';
+        $uploadfile = $uploaddir . 'img-' . rand(10000, 99999) . '.jpg';
+        move_uploaded_file($_FILES['file']['tmp_name'], $uploadfile);
+        $current_lot['img'] = $uploadfile;
+    } else {
+        $current_lot['img'] = '';
+    }
+
+    if (!empty($form['values']) && empty($form['errors'])) {
+        foreach ($form['values'] as $key => $value) {
+            $current_lot[$key] = $form['values'][$key];
+        }
+        $main = includeTemplate('lot.php', [
+            'current_lot' => $current_lot,
+            'bets' => $bets
+        ]);
+    }
+}
  ?>
 
 <!DOCTYPE html>

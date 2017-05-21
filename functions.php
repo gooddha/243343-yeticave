@@ -25,7 +25,6 @@ function includeTemplate($template, $template_data = []) {
     return $result;
 }
 
-
 function lotTimeRemaining() {
   // устанавливаем часовой пояс в Московское время
   date_default_timezone_set('Europe/Moscow');
@@ -136,6 +135,51 @@ function addFormValidation($input_array) {
     }
 
     return $result;
+}
+
+function loginFormValidation($input_array, $users) {
+    $result = [];
+    $result['values']['email'] = $input_array['email'];
+    $result['values']['password'] = $input_array['password'];
+
+    if (empty($input_array['email'])) {
+        $result['errors']['email'] = 'Введите email';
+    } else  {
+        if (filter_var($input_array['email'], FILTER_VALIDATE_EMAIL)) {
+
+            if ($user = findUser($input_array['email'], $users)) {
+
+                if (password_verify($input_array['password'], $user['password'])) {
+                    $_SESSION['user'] = $user;
+                    header("Location: /index.php");
+
+                } else {
+                    $result['errors']['password'] = 'Неверный пароль';
+                }
+            } else {
+                $result['errors']['email'] = 'Логин не существует';
+            }
+
+        } else {
+            $result['errors']['email'] = 'Введите корректный email';
+        }
     }
+
+    if (empty($input_array['password'])) {
+        $result['errors']['password'] = 'Введите пароль';
+    }
+
+    return $result;
+}
+
+function findUser($email, $users) {
+    $emails = array_column($users, 'email');
+    if(in_array($email, $emails)) {
+        $key = array_search($email, $emails);
+        return $users[$key];
+    } else {
+        return null;
+    }
+}
 
 ?>
