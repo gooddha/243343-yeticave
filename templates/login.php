@@ -22,18 +22,17 @@
     </ul>
   </nav>
 
-  <form class="form container <?= !empty($form['errors']) ? "form--invalid" : '' ?>" action="login.php" method="post"> <!-- form--invalid -->
+  <form class="form container <?= !empty($form['errors']) ? "form--invalid" : '' ?>" action="login.php" method="post">
 
-
-    <div class="form__item <?= !empty($form['errors']['email']) ? "form__item--invalid" : '' ?>"> <!-- form__item--invalid -->
+    <div class="form__item <?= !empty($form['errors']['email']) ? "form__item--invalid" : '' ?>">
       <label for="email">E-mail*</label>
-      <input id="email" type="text" name="email" placeholder="Введите e-mail" value="<?= ($form['values']['email'] ?? '' ) ?>">
+      <input id="email" type="text" name="email" placeholder="Введите e-mail" value="<?= ($form['values']['email'] ?? '' ) ?>" >
       <span class="form__error"><?= ($form['errors']['email'] ?? '') ?></span>
     </div>
 
     <div class="form__item form__item--last <?= !empty($form['errors']['password']) ? "form__item--invalid" : '' ?>">
       <label for="password">Пароль*</label>
-      <input id="password" type="text" name="password" placeholder="Введите пароль" value="<?= ($form['values']['password'] ?? '' ) ?>">
+      <input id="password" type="text" name="password" placeholder="Введите пароль" value="<?= ($form['values']['password'] ?? '' ) ?>" >
       <span class="form__error"><?= ($form['errors']['password'] ?? '') ?></span>
     </div>
 
