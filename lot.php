@@ -23,9 +23,16 @@ if ($lot_id !== null && isset($lots[$lot_id])) {
 
 if (!empty($_POST['cost']) && is_numeric($_POST['cost'])) {
     $bet = $_POST['cost'];
-    $bet_time = betTime(time());
-    $bet_info [] = json_encode([$bet, $bet_time, $lot_id]);
-    setcookie("bet_info", $bet_info);
+    $bet_time = time();
+    if (!empty($_COOKIE['bets_info'])) {
+        $bets_info = json_decode($_COOKIE['bets_info']);
+//        $bets_info [] = 132;
+    } else {
+        $bets_info [] = ['bet' => $bet, 'bet_time' => $bet_time, 'lot_id' => $lot_id];
+    }
+    $bets_info [] = ['bet' => $bet, 'bet_time' => $bet_time, 'lot_id' => $lot_id];
+//    setcookie("bets_info", '');
+    setcookie("bets_info", json_encode($bets_info));
     header("Location: /my-lots.php");
 }
 

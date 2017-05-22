@@ -5,8 +5,8 @@ session_start();
 include 'functions.php';
 include 'data/data.php';
 
-if (!empty($_COOKIE['bet_info'])) {
-    $bet_info = json_decode($_COOKIE['bet_info']);
+if (!empty($_COOKIE['bets_info'])) {
+    $bets_info = json_decode($_COOKIE['bets_info']);
 }
 
 $header = includeTemplate('header.php');
