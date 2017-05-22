@@ -1,29 +1,34 @@
 <?php
+
 session_start();
 
 include 'functions.php';
 include 'data/data.php';
 
-// ставки пользователей, которыми надо заполнить таблицу
-
-
 $lot_id = isset($_GET['id']) ? $_GET['id'] : null;
 $current_lot = [];
-
 
 if ($lot_id !== null && isset($lots[$lot_id])) {
     $current_lot = $lots[$lot_id];
     $main = includeTemplate('lot.php', [
         'current_lot' => $current_lot,
         'lots' => $lots,
-        'bets' => $bets
+        'bets' => $bets,
+        'lot_id' => $lot_id
     ]);
 } else {
     header("HTTP/1.1 404 Not Found");
     $main = includeTemplate('404.php');
 }
 
-//перенес подключение шаблонов страницы сюда, чтобы подключения шаблонов были в одном месте.
+if (!empty($_POST['cost']) && is_numeric($_POST['cost'])) {
+    $bet = $_POST['cost'];
+    $bet_time = betTime(time());
+    $bet_info [] = json_encode([$bet, $bet_time, $lot_id]);
+    setcookie("bet_info", $bet_info);
+    header("Location: /my-lots.php");
+}
+
 $header = includeTemplate('header.php');
 $footer = includeTemplate('footer.php');
 
