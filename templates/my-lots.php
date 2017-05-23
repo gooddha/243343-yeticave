@@ -25,15 +25,16 @@
         <h2>Мои ставки</h2>
         <table class="rates__list">
             <?php foreach ($bets_info as $bets) :?>
+                <?php $lot_id = $bets['lot_id'] ?>
             <tr class="rates__item">
                 <td class="rates__info">
                     <div class="rates__img">
-                        <img src="<?= $lots[$bets['lot_id']]['img'] ?>" width="54" height="40" alt="Сноуборд">
+                        <img src="<?= $lots[$lot_id]['img'] ?>" width="54" height="40" alt="Сноуборд">
                     </div>
-                    <h3 class="rates__title"><a href="lot.php?id=<?= $bets['lot_id']?>"><?= $lots[$bets['lot_id']]['lot-name'] ?></a></h3>
+                    <h3 class="rates__title"><a href="lot.php?id=<?= $lot_id ?>"><?= $lots[$lot_id]['lot-name'] ?></a></h3>
                 </td>
                 <td class="rates__category">
-                    <?= $lots[$bets['lot_id']]['category'] ?>
+                    <?= $lots[$lot_id]['category'] ?>
                 </td>
                 <td class="rates__timer">
                     <div class="timer timer--finishing">07:13:34</div>
