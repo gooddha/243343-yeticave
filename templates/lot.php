@@ -59,6 +59,7 @@
                             Мин. ставка <span>12 000 р</span>
                         </div>
                     </div>
+                    <?php if (!in_array($lot_id, $user_lots)): ?>
                     <form class="lot-item__form" action="lot.php?id=<?= $lot_id ?>" method="post">
                         <p class="lot-item__form-item">
                             <label for="cost">Ваша ставка</label>
@@ -66,6 +67,7 @@
                         </p>
                         <button type="submit" class="button">Сделать ставку</button>
                     </form>
+                    <?php endif ?>
                 </div>
                 <?php endif ?>
                 <div class="history">

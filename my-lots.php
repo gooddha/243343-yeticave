@@ -6,11 +6,11 @@ include 'functions.php';
 include 'data/data.php';
 
 if (!empty($_COOKIE['bets_info'])) {
-    $bets_info = json_decode($_COOKIE['bets_info']);
+    $bets_info = json_decode($_COOKIE['bets_info'], true);
 }
 
 $header = includeTemplate('header.php');
-$main = includeTemplate('my-lots.php');
+$main = includeTemplate('my-lots.php', ['bets_info' => $bets_info, 'lots' => $lots]);
 $footer = includeTemplate('footer.php');
 
 ?>
