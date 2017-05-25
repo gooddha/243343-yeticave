@@ -10,6 +10,7 @@ CREATE TABLE categories (
 CREATE TABLE lots (
   id INT AUTO_INCREMENT PRIMARY KEY,
   dt_add DATETIME,
+  name char(255),
   description TEXT,
   img CHAR(255),
   price INT UNSIGNED,
@@ -40,3 +41,5 @@ CREATE TABLE users (
 );
 
 CREATE UNIQUE INDEX email ON users(email);
+CREATE INDEX name ON lots(name);
+CREATE INDEX description ON lots(desription);
