@@ -8,9 +8,17 @@ include 'data/data.php';
 if (!empty($_COOKIE['bets_info'])) {
     $bets_info = json_decode($_COOKIE['bets_info'], true);
 }
+//else {
+//    $bets_info = [];
+//}
 
 $header = includeTemplate('header.php');
-$main = includeTemplate('my-lots.php', ['bets_info' => $bets_info, 'lots' => $lots]);
+
+if ($bets_info) {
+    $main = includeTemplate('my-lots.php', ['bets_info' => $bets_info, 'lots' => $lots]);
+} else {
+    $main = includeTemplate('404.php');
+}
 $footer = includeTemplate('footer.php');
 
 ?>
