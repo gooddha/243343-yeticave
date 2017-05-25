@@ -28,7 +28,7 @@ CREATE TABLE lots (
   current_price INT UNSIGNED,
   price_step INT UNSIGNED,
   dt_end DATETIME,
-  bits_count INT UNSIGNED,
+  bets_count INT UNSIGNED,
   seller INT,
   winner INT,
   category INT,
@@ -39,7 +39,7 @@ CREATE TABLE lots (
   FOREIGN KEY (category) REFERENCES categories(id)
 );
 
-CREATE TABLE bits (
+CREATE TABLE bets (
   id INT AUTO_INCREMENT PRIMARY KEY,
   dt_add DATETIME,
   value INT UNSIGNED,
