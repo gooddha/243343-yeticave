@@ -10,7 +10,12 @@ if (!empty($_COOKIE['bets_info'])) {
 }
 
 $header = includeTemplate('header.php');
-$main = includeTemplate('my-lots.php', ['bets_info' => $bets_info, 'lots' => $lots]);
+
+if (isset($bets_info)) {
+    $main = includeTemplate('my-lots.php', ['bets_info' => $bets_info, 'lots' => $lots]);
+} else {
+    $main = includeTemplate('404.php');
+}
 $footer = includeTemplate('footer.php');
 
 ?>
