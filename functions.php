@@ -59,10 +59,10 @@ function betTime($bet_time) {
         //прошло меньше 24 часов
         if ($time_elapsed < 3600) {
           //прошло меньше часа
-          return ($time_elapsed/60 . " мин. назад");
+          return (floor($time_elapsed/60) . " мин. назад");
         } else {
           // прошло больше часа
-          return ($time_elapsed/3600 . " час. назад");
+          return (floor($time_elapsed/3600) . " час. назад");
         }
     }
 }
