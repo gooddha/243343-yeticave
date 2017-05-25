@@ -42,4 +42,4 @@ CREATE TABLE users (
 
 CREATE UNIQUE INDEX email ON users(email);
 CREATE INDEX name ON lots(name);
-CREATE INDEX description ON lots(desription);
+CREATE INDEX category ON lots(category);
