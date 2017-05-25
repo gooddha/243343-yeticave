@@ -1,18 +1,20 @@
-CREATE DATABASE yeticave;
+CREATE DATABASE yeticave
+DEFAULT CHARACTER SET utf8
+DEFAULT COLLATE utf8_general_ci;
 
 USE yeticave;
 
 CREATE TABLE categories (
   id INT AUTO_INCREMENT PRIMARY KEY,
-  name CHAR(255)
+  name CHAR(255) NOT NULL
 );
 
 CREATE TABLE users (
   id INT AUTO_INCREMENT PRIMARY KEY,
   dt_add DATETIME,
-  email CHAR(255),
-  name CHAR(255),
-  password CHAR(64),
+  email CHAR(255) NOT NULL,
+  name CHAR(255) NOT NULL,
+  password CHAR(64) NOT NULL,
   avatar CHAR(255),
   contacts TEXT,
   UNIQUE INDEX (email)
@@ -21,17 +23,17 @@ CREATE TABLE users (
 CREATE TABLE lots (
   id INT AUTO_INCREMENT PRIMARY KEY,
   dt_add DATETIME,
-  title char(255),
+  title char(255) NOT NULL,
   description TEXT,
   img CHAR(255),
-  start_price INT UNSIGNED,
-  current_price INT UNSIGNED,
-  price_step INT UNSIGNED,
-  dt_end DATETIME,
-  bets_count INT UNSIGNED,
+  start_price INT NOT NULL,
+  current_price INT,
+  price_step INT NOT NULL,
+  dt_end DATETIME NOT NULL,
+  bets_count INT,
   seller INT,
   winner INT,
-  category INT,
+  category INT NOT NULL,
   INDEX (title),
   INDEX (category),
   FOREIGN KEY (seller) REFERENCES users(id),
@@ -41,10 +43,10 @@ CREATE TABLE lots (
 
 CREATE TABLE bets (
   id INT AUTO_INCREMENT PRIMARY KEY,
-  dt_add DATETIME,
-  value INT UNSIGNED,
-  user INT,
-  lot INT,
+  dt_add DATETIME NOT NULL,
+  value INT NOT NULL,
+  user INT NOT NULL,
+  lot INT NOT NULL,
   FOREIGN KEY (user) REFERENCES users(id),
   FOREIGN KEY (lot) REFERENCES lots(id)
 );
