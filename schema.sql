@@ -6,12 +6,13 @@ USE yeticave;
 
 CREATE TABLE categories (
   id INT AUTO_INCREMENT PRIMARY KEY,
-  name CHAR(255) NOT NULL
+  name CHAR(255) NOT NULL,
+  UNIQUE INDEX (name)
 );
 
 CREATE TABLE users (
   id INT AUTO_INCREMENT PRIMARY KEY,
-  dt_add DATETIME,
+  dt_add DATETIME NOT NULL DEFAULT NOW(),
   email CHAR(255) NOT NULL,
   name CHAR(255) NOT NULL,
   password CHAR(64) NOT NULL,
@@ -22,16 +23,15 @@ CREATE TABLE users (
 
 CREATE TABLE lots (
   id INT AUTO_INCREMENT PRIMARY KEY,
-  dt_add DATETIME,
+  dt_add DATETIME NOT NULL DEFAULT NOW(),
   title char(255) NOT NULL,
   description TEXT,
   img CHAR(255),
-  start_price INT NOT NULL,
-  current_price INT,
+  price INT NOT NULL,
   price_step INT NOT NULL,
   dt_end DATETIME NOT NULL,
   bets_count INT,
-  seller INT,
+  seller INT NOT NULL,
   winner INT,
   category INT NOT NULL,
   INDEX (title),
