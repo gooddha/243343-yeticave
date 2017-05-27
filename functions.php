@@ -1,5 +1,7 @@
 <?php
 
+include 'mysql_helper.php';
+
 function includeTemplate($template, $template_data = []) {
     $template = "templates/" . $template;
     $result='';
@@ -179,6 +181,49 @@ function findUser($email, $users) {
         return $users[$key];
     } else {
         return null;
+    }
+}
+
+function getData($link, $sql, $sql_data = []) {
+
+    $stmt = db_get_prepare_stmt($link, $sql, $sql_data);
+    $res = mysqli_stmt_get_result($stmt);
+
+    if (empty($res)) {
+        return [];
+    } else {
+        while ($row = mysqli_fetch_array($res, MYSQLI_NUM)) {
+            $result []= $row;
+        }
+        return $result;
+    }
+}
+
+function putData($link, $sql, $sql_data = []) {
+
+    $stmt = db_get_prepare_stmt($link, $sql, $sql_data);
+    mysqli_stmt_execute($stmt);
+
+    $result = mysqli_insert_id($link);
+
+    if (!$result) {
+        return mysqli_error($link);
+    } else {
+            return $result;
+        }
+}
+
+function updateData($link, $table, $sql, $sql_data = [], $where = []) {
+    $data = arrayMerge($sql_data, $where);
+    $stmt = db_get_prepare_stmt($link, $table, $sql, $data);
+    mysqli_stmt_execute($stmt);
+
+    $result = mysqli_stmt_affected_rows($link);
+
+    if (!$result) {
+        return mysqli_error($link);
+    } else {
+        return $result;
     }
 }
 
