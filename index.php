@@ -5,8 +5,16 @@ session_start();
 include 'functions.php';
 include 'data/data.php';
 
-//объявление массива со списком категорий
-$categories = ["Доски и лыжи", "Крепления", "Ботинки", "Одежда", "Инструменты", "Разное"];
+$link = mysqli_connect("localhost", "root", "", "yeticave");
+
+if ($link == false) {
+    print("Ошибка подключения: ". mysqli_connect_error());
+} else {
+    print("Соединение установлено");
+}
+
+
+//$categories =
 
 ?>
 

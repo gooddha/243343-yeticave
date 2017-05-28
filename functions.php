@@ -219,7 +219,7 @@ function updateData($link, $table, $sql_data = [], $where = []) {
 
     $placeholders = '';
 
-    for (i = 1, i <= count($sql_data)) {
+    for ($i = 1; $i <= count($sql_data); $i++) {
         $placeholders .= '? = ?, ';
     }
 
