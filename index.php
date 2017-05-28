@@ -13,7 +13,7 @@ if ($link == false) {
 }
 
 $sql = "SELECT name FROM categories";
-$categories = getData($link, $sql);
+$categories = array_values(getData($link, $sql));
 
 ?>
 
