@@ -195,7 +195,7 @@ function getData($link, $sql, $sql_data = []) {
     if (empty($res)) {
         return [];
     } else {
-        while ($row = mysqli_fetch_array($res, MYSQLI_NUM)) {
+        while ($row = mysqli_fetch_array($res, MYSQLI_ASSOC)) {
             $result [] = $row;
         }
         return $result;
@@ -226,8 +226,8 @@ function updateData($link, $table, $sql_data = [], $where = []) {
     }
 
     $placeholders = implode(', ', $placeholders);
-
-    $sql = "UPDATE " . $table . " SET " . $placeholders . " WHERE {key($where)} = ?";
+    $key_where = key($where);
+    $sql = "UPDATE `{$table}` SET " . $placeholders . " WHERE {$key_where} = ?";
     $data = array_merge($sql_data, $where);
     $stmt = db_get_prepare_stmt($link, $sql, $data);
     mysqli_stmt_execute($stmt);
