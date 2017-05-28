@@ -1,5 +1,7 @@
 <?php
 
+include 'mysql_helper.php';
+
 function includeTemplate($template, $template_data = []) {
     $template = "templates/" . $template;
     $result='';
@@ -179,6 +181,63 @@ function findUser($email, $users) {
         return $users[$key];
     } else {
         return null;
+    }
+}
+
+function getData($link, $sql, $sql_data = []) {
+
+    $result = [];
+
+    $stmt = db_get_prepare_stmt($link, $sql, $sql_data);
+    mysqli_stmt_execute($stmt);
+    $res = mysqli_stmt_get_result($stmt);
+
+    if (empty($res)) {
+        return [];
+    } else {
+        while ($row = mysqli_fetch_array($res, MYSQLI_ASSOC)) {
+            $result [] = $row;
+        }
+        return $result;
+    }
+}
+
+function putData($link, $sql, $sql_data = []) {
+
+    $stmt = db_get_prepare_stmt($link, $sql, $sql_data);
+    mysqli_stmt_execute($stmt);
+
+    $result = mysqli_insert_id($link);
+
+    if (!$result) {
+        return false;
+    } else {
+        return $result;
+    }
+}
+
+function updateData($link, $table, $sql_data = [], $where = []) {
+
+    $placeholders = [];
+
+
+    foreach ($sql_data as $key => $value) {
+        $placeholders []= "`{$key}` = ?";
+    }
+
+    $placeholders = implode(', ', $placeholders);
+    $key_where = key($where);
+    $sql = "UPDATE `{$table}` SET " . $placeholders . " WHERE {$key_where} = ?";
+    $data = array_merge($sql_data, $where);
+    $stmt = db_get_prepare_stmt($link, $sql, $data);
+    mysqli_stmt_execute($stmt);
+
+    $result = mysqli_stmt_affected_rows($link);
+
+    if (!$result) {
+        return false;
+    } else {
+        return $result;
     }
 }
 
