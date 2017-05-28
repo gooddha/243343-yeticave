@@ -186,16 +186,17 @@ function findUser($email, $users) {
 
 function getData($link, $sql, $sql_data = []) {
 
-    $result = '';
+    $result = [];
 
     $stmt = db_get_prepare_stmt($link, $sql, $sql_data);
+    mysqli_stmt_execute($stmt);
     $res = mysqli_stmt_get_result($stmt);
 
     if (empty($res)) {
         return [];
     } else {
         while ($row = mysqli_fetch_array($res, MYSQLI_NUM)) {
-            $result []= $row;
+            $result [] = $row;
         }
         return $result;
     }
@@ -217,13 +218,16 @@ function putData($link, $sql, $sql_data = []) {
 
 function updateData($link, $table, $sql_data = [], $where = []) {
 
-    $placeholders = '';
+    $placeholders = [];
 
-    for (i = 1; i <= count($sql_data); $i++) {
-        $placeholders .= '? = ?, ';
+
+    foreach ($sql_data as $key => $value) {
+        $placeholders []= "`{$key}` = ?";
     }
 
-    $sql = "UPDATE" . $table . "SET" . $placeholders . "WHERE ? = ?" ;
+    $placeholders = implode(', ', $placeholders);
+
+    $sql = "UPDATE " . $table . " SET " . $placeholders . " WHERE {key($where)} = ?";
     $data = array_merge($sql_data, $where);
     $stmt = db_get_prepare_stmt($link, $sql, $data);
     mysqli_stmt_execute($stmt);
