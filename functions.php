@@ -186,6 +186,8 @@ function findUser($email, $users) {
 
 function getData($link, $sql, $sql_data = []) {
 
+    $result = '';
+
     $stmt = db_get_prepare_stmt($link, $sql, $sql_data);
     $res = mysqli_stmt_get_result($stmt);
 
@@ -207,21 +209,29 @@ function putData($link, $sql, $sql_data = []) {
     $result = mysqli_insert_id($link);
 
     if (!$result) {
-        return mysqli_error($link);
+        return false;
     } else {
-            return $result;
-        }
+        return $result;
+    }
 }
 
-function updateData($link, $table, $sql, $sql_data = [], $where = []) {
-    $data = arrayMerge($sql_data, $where);
-    $stmt = db_get_prepare_stmt($link, $table, $sql, $data);
+function updateData($link, $table, $sql_data = [], $where = []) {
+
+    $placeholders = '';
+
+    for (i = 1, i <= count($sql_data)) {
+        $placeholders .= '? = ?, ';
+    }
+
+    $sql = "UPDATE" . $table . "SET" . $placeholders . "WHERE ? = ?" ;
+    $data = array_merge($sql_data, $where);
+    $stmt = db_get_prepare_stmt($link, $sql, $data);
     mysqli_stmt_execute($stmt);
 
     $result = mysqli_stmt_affected_rows($link);
 
     if (!$result) {
-        return mysqli_error($link);
+        return false;
     } else {
         return $result;
     }
