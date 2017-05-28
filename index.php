@@ -3,7 +3,6 @@
 session_start();
 
 include 'functions.php';
-include 'data/data.php';
 
 $link = mysqli_connect("localhost", "root", "", "yeticave");
 
@@ -13,8 +12,8 @@ if ($link == false) {
     print("Соединение установлено");
 }
 
-
-//$categories =
+$sql = "SELECT name FROM categories";
+$categories = getData($link, $sql);
 
 ?>
 
