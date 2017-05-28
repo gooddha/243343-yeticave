@@ -2,7 +2,7 @@
 session_start();
 
 include 'functions.php';
-include 'data/data.php';
+include 'db_link.php';
 
 if (!isset($_SESSION['user'])) {
     header("HTTP/1.0 403 Forbidden");
@@ -16,7 +16,7 @@ if (!isset($_SESSION['user'])) {
         $form = addformValidation(postFilter($_POST));
     }
 
-    $main = includeTemplate('add.php', ['form' => $form]);
+    $main = includeTemplate('add.php', ['categories' => $categories, 'form' => $form]);
 
     if (!empty($_FILES['file']['name'])) {
         $uploaddir = 'img/';
@@ -32,6 +32,7 @@ if (!isset($_SESSION['user'])) {
             $current_lot[$key] = $form['values'][$key];
         }
         $main = includeTemplate('lot.php', [
+            'categories' => $categories,
             'current_lot' => $current_lot,
             'bets' => $bets
         ]);
@@ -52,7 +53,7 @@ if (!isset($_SESSION['user'])) {
 <?php
 $header = includeTemplate('header.php');
 
-$footer = includeTemplate('footer.php');
+$footer = includeTemplate('footer.php', ['categories' => $categories]);
 
 echo $header, $main, $footer;
 ?>

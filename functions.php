@@ -2,6 +2,8 @@
 
 include 'mysql_helper.php';
 
+
+
 function includeTemplate($template, $template_data = []) {
     $template = "templates/" . $template;
     $result='';

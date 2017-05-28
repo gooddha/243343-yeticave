@@ -3,17 +3,7 @@
 session_start();
 
 include 'functions.php';
-
-$link = mysqli_connect("localhost", "root", "", "yeticave");
-
-if ($link == false) {
-    print("Ошибка подключения: ". mysqli_connect_error());
-} else {
-    print("Соединение установлено");
-}
-
-$sql = "SELECT name FROM categories";
-$categories = array_values(getData($link, $sql));
+include 'db_link.php';
 
 ?>
 
@@ -33,7 +23,7 @@ $main = includeTemplate('main.php', [
     'lots' => $lots,
     'categories' => $categories
 ]);
-$footer = includeTemplate('footer.php');
+$footer = includeTemplate('footer.php', ['categories' => $categories]);
 
 echo $header, $main, $footer;
 ?>
