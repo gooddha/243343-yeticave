@@ -25,12 +25,12 @@
         <label for="category">Категория</label>
         <select id="category" name="category">
           <option <?= empty($form['values']['category']) ? "selected" : '' ?>>Выберите категорию</option>
-          <option <?= $form['values']['category'] == 'Доски и лыжи' ? "selected" : '' ?>>Доски и лыжи</option>
-          <option <?= $form['values']['category'] == 'Крепления' ? "selected" : '' ?>>Крепления</option>
-          <option <?= $form['values']['category'] == 'Ботинки' ? "selected" : '' ?>>Ботинки</option>
-          <option <?= $form['values']['category'] == 'Одежда' ? "selected" : '' ?>>Одежда</option>
-          <option <?= $form['values']['category'] == 'Инструменты' ? "selected" : '' ?>>Инструменты</option>
-          <option <?= $form['values']['category'] == 'Разное' ? "selected" : '' ?>>Разное</option>
+          <option value="1" <?= $form['values']['category'] == '1' ? "selected" : '' ?>>Доски и лыжи</option>
+          <option value="2" <?= $form['values']['category'] == '2' ? "selected" : '' ?>>Крепления</option>
+          <option value="3" <?= $form['values']['category'] == '3' ? "selected" : '' ?>>Ботинки</option>
+          <option value="4" <?= $form['values']['category'] == '4' ? "selected" : '' ?>>Одежда</option>
+          <option value="5" <?= $form['values']['category'] == '5' ? "selected" : '' ?>>Инструменты</option>
+          <option value="6" <?= $form['values']['category'] == '6' ? "selected" : '' ?>>Разное</option>
         </select>
         <span class="form__error"><?= ($form['errors']['category'] ?? '') ?></span>
       </div>
