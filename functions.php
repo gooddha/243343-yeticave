@@ -78,7 +78,7 @@ function postFilter($array) {
     return $result;
 }
 
-function addFormValidation($input_array) {
+function addformValidation($input_array) {
     $result = [];
 
     if (!empty($input_array['lot-name'])) {
@@ -139,7 +139,7 @@ function addFormValidation($input_array) {
     return $result;
 }
 
-function loginFormValidation($input_array, $users) {
+function loginformValidation($input_array, $users) {
     $result = [];
     $result['values']['email'] = $input_array['email'];
     $result['values']['password'] = $input_array['password'];
@@ -174,10 +174,47 @@ function loginFormValidation($input_array, $users) {
     return $result;
 }
 
+function signupformValidation($input_array, $users) {
+    $result = [];
+    $result['values']['email'] = $input_array['email'];
+    $result['values']['password'] = $input_array['password'];
+    $result['values']['name'] = $input_array['name'];
+    $result['values']['img'] = $input_array['img'];
+    $result['values']['message'] = $input_array['message'];
+
+    if (empty($input_array['email'])) {
+        $result['errors']['email'] = 'Введите email';
+    } else  {
+        if (filter_var($input_array['email'], FILTER_VALIDATE_EMAIL)) {
+
+            if ($user = findUser($input_array['email'], $users)) {
+                $result['errors']['email'] = 'Логин уже зарегистрирован';
+            }
+        } else {
+            $result['errors']['email'] = 'Введите корректный email';
+        }
+    }
+
+    if (empty($input_array['password'])) {
+        $result['errors']['password'] = 'Введите пароль';
+    }
+
+    if (empty($input_array['name'])) {
+        $result['errors']['name'] = 'Введите имя';
+    }
+
+    if (empty($input_array['message'])) {
+        $result['errors']['message'] = 'Введите контактные данные';
+    }
+
+    return $result;
+}
+
 function findUser($email, $users) {
     $emails = array_column($users, 'email');
     if(in_array($email, $emails)) {
         $key = array_search($email, $emails);
+        $users [$key]['id'] = $key;
         return $users[$key];
     } else {
         return null;

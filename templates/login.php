@@ -1,29 +1,16 @@
 <main>
   <nav class="nav">
     <ul class="nav__list container">
-      <li class="nav__item">
-        <a href="all-lots.html">Доски и лыжи</a>
-      </li>
-      <li class="nav__item">
-        <a href="all-lots.html">Крепления</a>
-      </li>
-      <li class="nav__item">
-        <a href="all-lots.html">Ботинки</a>
-      </li>
-      <li class="nav__item">
-        <a href="all-lots.html">Одежда</a>
-      </li>
-      <li class="nav__item">
-        <a href="all-lots.html">Инструменты</a>
-      </li>
-      <li class="nav__item">
-        <a href="all-lots.html">Разное</a>
-      </li>
+        <?php foreach ($categories as $value): ?>
+            <li class="nav__item">
+                <a href="all-lots.html"><?= $value ?></a>
+            </li>
+        <?php endforeach; ?>
     </ul>
   </nav>
 
   <form class="form container <?= !empty($form['errors']) ? "form--invalid" : '' ?>" action="login.php" method="post">
-
+      <h3><?= $signup ? "Теперь вы можете войти, используя свой email и пароль:" : '' ?></h3>
     <div class="form__item <?= !empty($form['errors']['email']) ? "form__item--invalid" : '' ?>">
       <label for="email">E-mail*</label>
       <input id="email" type="text" name="email" placeholder="Введите e-mail" value="<?= ($form['values']['email'] ?? '' ) ?>" >

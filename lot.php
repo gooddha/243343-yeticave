@@ -3,7 +3,7 @@
 session_start();
 
 include 'functions.php';
-include 'data/data.php';
+include 'db_link.php';
 
 $lot_id = isset($_GET['id']) ? $_GET['id'] : null;
 $current_lot = [];
@@ -30,6 +30,7 @@ if ($bets_info) {
 if ($lot_id !== null && isset($lots[$lot_id])) {
     $current_lot = $lots[$lot_id];
     $main = includeTemplate('lot.php', [
+        'categories' => $categories,
         'current_lot' => $current_lot,
         'lots' => $lots,
         'bets' => $bets,
@@ -38,11 +39,11 @@ if ($lot_id !== null && isset($lots[$lot_id])) {
     ]);
 } else {
     header("HTTP/1.1 404 Not Found");
-    $main = includeTemplate('404.php');
+    $main = includeTemplate('404.php', ['categories' => $categories]);
 }
 
 $header = includeTemplate('header.php');
-$footer = includeTemplate('footer.php');
+$footer = includeTemplate('footer.php', ['categories' => $categories]);
 
 ?>
 
@@ -50,7 +51,7 @@ $footer = includeTemplate('footer.php');
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title><?= isset($current_lot["lot-name"]) ? $current_lot["lot-name"] : "404 - Page not found" ?></title>
+    <title><?= isset($current_lot["title"]) ? $current_lot["title"] : "404 - Page not found" ?></title>
     <link href="css/normalize.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 </head>

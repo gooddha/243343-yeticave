@@ -3,8 +3,7 @@
 session_start();
 
 include 'functions.php';
-include 'data/data.php';
-include 'data/userdata.php';
+include 'db_link.php';
 
 $form = [];
 
@@ -13,6 +12,7 @@ if (!empty($_POST)) {
 }
 
 $main = includeTemplate('login.php', [
+    'categories' => $categories,
     'form' => $form,
     'users' => $users
 ]);
@@ -32,7 +32,7 @@ $main = includeTemplate('login.php', [
 <?php
 
 $header = includeTemplate('header.php');
-$footer = includeTemplate('footer.php');
+$footer = includeTemplate('footer.php', ['categories' => $categories]);
 
 echo $header, $main, $footer;
 
