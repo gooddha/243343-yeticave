@@ -1,24 +1,11 @@
 <main>
   <nav class="nav">
     <ul class="nav__list container">
-      <li class="nav__item">
-        <a href="all-lots.html">Доски и лыжи</a>
-      </li>
-      <li class="nav__item">
-        <a href="all-lots.html">Крепления</a>
-      </li>
-      <li class="nav__item">
-        <a href="all-lots.html">Ботинки</a>
-      </li>
-      <li class="nav__item">
-        <a href="all-lots.html">Одежда</a>
-      </li>
-      <li class="nav__item">
-        <a href="all-lots.html">Инструменты</a>
-      </li>
-      <li class="nav__item">
-        <a href="all-lots.html">Разное</a>
-      </li>
+        <?php foreach ($categories as $value): ?>
+            <li class="nav__item">
+                <a href="all-lots.html"><?= $value ?></a>
+            </li>
+        <?php endforeach; ?>
     </ul>
   </nav>
 
@@ -27,10 +14,10 @@
 
 <!--Наименование-->
     <div class="form__container-two">
-      <div class="form__item <?= !empty($form['errors']['lot-name']) ? "form__item--invalid" : '' ?>">
+      <div class="form__item <?= !empty($form['errors']['title']) ? "form__item--invalid" : '' ?>">
         <label for="lot-name">Наименование</label>
-        <input id="lot-name" type="text" name="lot-name" placeholder="Введите наименование лота" value="<?= ($form['values']['lot-name'] ?? '' ) ?>" required>
-        <span class="form__error"><?= ($form['errors']['lot-name'] ?? '') ?></span>
+        <input id="lot-name" type="text" name="title" placeholder="Введите наименование лота" value="<?= ($form['values']['title'] ?? '' ) ?>" required>
+        <span class="form__error"><?= ($form['errors']['title'] ?? '') ?></span>
       </div>
 
 <!--Категория-->
@@ -38,12 +25,12 @@
         <label for="category">Категория</label>
         <select id="category" name="category">
           <option <?= empty($form['values']['category']) ? "selected" : '' ?>>Выберите категорию</option>
-          <option <?= $form['values']['category'] == 'Доски и лыжи' ? "selected" : '' ?>>Доски и лыжи</option>
-          <option <?= $form['values']['category'] == 'Крепления' ? "selected" : '' ?>>Крепления</option>
-          <option <?= $form['values']['category'] == 'Ботинки' ? "selected" : '' ?>>Ботинки</option>
-          <option <?= $form['values']['category'] == 'Одежда' ? "selected" : '' ?>>Одежда</option>
-          <option <?= $form['values']['category'] == 'Инструменты' ? "selected" : '' ?>>Инструменты</option>
-          <option <?= $form['values']['category'] == 'Разное' ? "selected" : '' ?>>Разное</option>
+          <option value="1" <?= $form['values']['category'] == '1' ? "selected" : '' ?>>Доски и лыжи</option>
+          <option value="2" <?= $form['values']['category'] == '2' ? "selected" : '' ?>>Крепления</option>
+          <option value="3" <?= $form['values']['category'] == '3' ? "selected" : '' ?>>Ботинки</option>
+          <option value="4" <?= $form['values']['category'] == '4' ? "selected" : '' ?>>Одежда</option>
+          <option value="5" <?= $form['values']['category'] == '5' ? "selected" : '' ?>>Инструменты</option>
+          <option value="6" <?= $form['values']['category'] == '6' ? "selected" : '' ?>>Разное</option>
         </select>
         <span class="form__error"><?= ($form['errors']['category'] ?? '') ?></span>
       </div>
@@ -57,7 +44,7 @@
     </div>
 
 <!--Изображение-->
-    <div class="form__item form__item--file"> <!-- form__item--uploaded -->
+    <div class="form__item form__item--file <?= !empty($form['errors']['img']) ? "form__item--invalid" : '' ?>"> <!-- form__item--uploaded -->
       <label>Изображение</label>
       <div class="preview">
         <button class="preview__remove" type="button">x</button>
@@ -70,15 +57,16 @@
         <label for="photo2">
           <span>+ Добавить</span>
         </label>
+        <span class="form__error"><?= ($form['errors']['img'] ?? '') ?></span>
       </div>
     </div>
 
 <!--Начальная цена -->
     <div class="form__container-three">
-      <div class="form__item form__item--small <?= !empty($form['errors']['lot-rate']) ? "form__item--invalid" : '' ?>">
+      <div class="form__item form__item--small <?= !empty($form['errors']['price']) ? "form__item--invalid" : '' ?>">
         <label for="lot-rate">Начальная цена</label>
-        <input id="lot-rate" type="number" name="lot-rate" placeholder="0" value="<?= ($form['values']['lot-rate'] ?? '' ) ?>" required>
-        <span class="form__error"><?= ($form['errors']['lot-rate'] ?? '') ?></span>
+        <input id="lot-rate" type="number" name="price" placeholder="0" value="<?= ($form['values']['price'] ?? '' ) ?>" required>
+        <span class="form__error"><?= ($form['errors']['price'] ?? '') ?></span>
       </div>
 
 <!--Шаг ставки -->

@@ -78,13 +78,13 @@ function postFilter($array) {
     return $result;
 }
 
-function addFormValidation($input_array) {
+function addformValidation($input_array) {
     $result = [];
 
-    if (!empty($input_array['lot-name'])) {
-        $result['values']['lot-name'] = $input_array['lot-name'];
+    if (!empty($input_array['title'])) {
+        $result['values']['title'] = $input_array['title'];
     } else {
-        $result['errors']['lot-name'] = 'Заполните наименование';
+        $result['errors']['title'] = 'Заполните наименование';
     }
 
     if ($input_array['category']) {
@@ -101,15 +101,15 @@ function addFormValidation($input_array) {
         $result['errors']['message'] = 'Заполните описание лота';
     }
 
-    if (!empty($input_array['lot-rate'])) {
-        if (is_numeric($input_array['lot-rate'])) {
-            $result['values']['lot-rate'] = $input_array['lot-rate'];
+    if (!empty($input_array['price'])) {
+        if (is_numeric($input_array['price'])) {
+            $result['values']['price'] = $input_array['price'];
         } else {
-            $result['values']['lot-rate'] = $input_array['lot-rate'];
-            $result['errors']['lot-rate'] = 'Введите числовое значение';
+            $result['values']['price'] = $input_array['lot-rate'];
+            $result['errors']['price'] = 'Введите числовое значение';
         }
     } else {
-            $result['errors']['lot-rate'] = 'Укажите начальную цену';
+            $result['errors']['price'] = 'Укажите начальную цену';
     }
 
     if (!empty($input_array['lot-step'])) {
@@ -125,21 +125,36 @@ function addFormValidation($input_array) {
 
 
     if (!empty($input_array['lot-date'])) {
+        $result['values']['lot-date'] = $input_array['lot-date'];
         if (($timestamp = strtotime($input_array['lot-date'])) === false) {
             $result['errors']['lot-date'] = 'Введите корректное значение даты';
-            $result['values']['lot-date'] = $input_array['lot-date'];
         } else {
-            $result['values']['lot-date'] = date('d.m.Y', $timestamp);
+            if ($timestamp-date('d.m.Y', time()) >= 86400) {
+                $result['values']['lot-date'] = date('d.m.Y', $timestamp);
+            } else {
+                $result['errors']['lot-date'] = 'Дата завершения должны быть больше текущей';
+            }
         }
     } else {
         $result['errors']['lot-date'] = 'Укажите дату завершения';
-        $result['values']['lot-date'] = $input_array['lot-date'];
+    }
+
+    if (!empty($_FILES['file']['name'])) {
+        $mime_types = [
+            'png' => 'image/png',
+            'jpg' => 'image/jpg',
+            'jpeg' => 'image/jpeg'
+        ];
+        $uploaded_file_type = mime_content_type($_FILES['file']['tmp_name']);
+        if (!in_array($uploaded_file_type, $mime_types)) {
+            $result['errors']['img'] = 'Тип загруженного файла не jpg, jpeg или png';
+        }
     }
 
     return $result;
 }
 
-function loginFormValidation($input_array, $users) {
+function loginformValidation($input_array, $users) {
     $result = [];
     $result['values']['email'] = $input_array['email'];
     $result['values']['password'] = $input_array['password'];
@@ -174,10 +189,60 @@ function loginFormValidation($input_array, $users) {
     return $result;
 }
 
+function signupformValidation($input_array, $users) {
+    $result = [];
+    $result['values']['email'] = $input_array['email'];
+    $result['values']['password'] = $input_array['password'];
+    $result['values']['name'] = $input_array['name'];
+    $result['values']['img'] = $input_array['img'];
+    $result['values']['message'] = $input_array['message'];
+
+    if (empty($input_array['email'])) {
+        $result['errors']['email'] = 'Введите email';
+    } else  {
+        if (filter_var($input_array['email'], FILTER_VALIDATE_EMAIL)) {
+
+            if ($user = findUser($input_array['email'], $users)) {
+                $result['errors']['email'] = 'Логин уже зарегистрирован';
+            }
+        } else {
+            $result['errors']['email'] = 'Введите корректный email';
+        }
+    }
+
+    if (empty($input_array['password'])) {
+        $result['errors']['password'] = 'Введите пароль';
+    }
+
+    if (empty($input_array['name'])) {
+        $result['errors']['name'] = 'Введите имя';
+    }
+
+    if (empty($input_array['message'])) {
+        $result['errors']['message'] = 'Введите контактные данные';
+    }
+
+    if (!empty($_FILES['file']['name'])) {
+    $mime_types = [
+        'png' => 'image/png',
+        'jpg' => 'image/jpg',
+        'jpeg' => 'image/jpeg'
+    ];
+        $uploaded_file_type = mime_content_type($_FILES['file']['tmp_name']);
+        if (!in_array($uploaded_file_type, $mime_types)) {
+            $result['errors']['img'] = 'Тип загруженного файла не jpg, jpeg или png';
+        }
+    }
+
+
+    return $result;
+}
+
 function findUser($email, $users) {
     $emails = array_column($users, 'email');
     if(in_array($email, $emails)) {
         $key = array_search($email, $emails);
+        $users [$key]['id'] = $key;
         return $users[$key];
     } else {
         return null;

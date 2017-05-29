@@ -3,10 +3,7 @@
 session_start();
 
 include 'functions.php';
-include 'data/data.php';
-
-//объявление массива со списком категорий
-$categories = ["Доски и лыжи", "Крепления", "Ботинки", "Одежда", "Инструменты", "Разное"];
+include 'db_link.php';
 
 ?>
 
@@ -26,7 +23,7 @@ $main = includeTemplate('main.php', [
     'lots' => $lots,
     'categories' => $categories
 ]);
-$footer = includeTemplate('footer.php');
+$footer = includeTemplate('footer.php', ['categories' => $categories]);
 
 echo $header, $main, $footer;
 ?>

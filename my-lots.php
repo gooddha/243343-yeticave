@@ -3,7 +3,7 @@
 session_start();
 
 include 'functions.php';
-include 'data/data.php';
+include 'db_link.php';
 
 if (!empty($_COOKIE['bets_info'])) {
     $bets_info = json_decode($_COOKIE['bets_info'], true);
@@ -11,12 +11,12 @@ if (!empty($_COOKIE['bets_info'])) {
 
 $header = includeTemplate('header.php');
 
-if (isset($bets_info)) {
-    $main = includeTemplate('my-lots.php', ['bets_info' => $bets_info, 'lots' => $lots]);
+if (isset($bets_info) && isset($_SESSION['user'])) {
+    $main = includeTemplate('my-lots.php', ['categories' => $categories, 'bets_info' => $bets_info, 'lots' => $lots]);
 } else {
-    $main = includeTemplate('404.php');
+    $main = includeTemplate('404.php', ['categories' => $categories]);
 }
-$footer = includeTemplate('footer.php');
+$footer = includeTemplate('footer.php', ['categories' => $categories]);
 
 ?>
 
