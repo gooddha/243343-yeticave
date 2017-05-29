@@ -11,42 +11,55 @@ class UserAuth
     private $email;
     private $name;
     private $avatar;
+    private $guest = true;
 
 
     public function login($email, $password)
     {
-        $sql = "SELECT email, name, password FROM users";
-        $users = getData($sql);
-
-        if ($user = $this->findUser($email, $users)) {
-
+        if ($user = $this->findUser($email)) {
             if (password_verify($password, $user['password'])) {
-                $_SESSION['user'] = $user;             
-
+                $_SESSION['user'] = $user;
+                $this->email = $user['email'];
+                $this->name = $user['name'];
+                $this->avatar = $user['avatar'];
+                $this->guest = false;
+                $result = true;
             } else {
-                $result['errors']['password'] = 'Неверный пароль';
+                $result = false;
             }
         } else {
-            $result['errors']['email'] = 'Логин не существует';
+            $result = false;
         }
+        return $result;
+    }
 
+    public function logout()
+    {
+        unset($_SESSION['user']);
+    }
+
+    public function about()
+    {
+        if (!$this->isGuest()) {
+            return ($this->email, $this->name, $this->avatar);
+        } else {
+            return false;
+        }
     }
 
     public function isGuest()
     {
-        return $this->email = false;
+        return $this->guest == true;
     }
 
-    private function findUser($email, $users)
+    private function findUser($email)
     {
-        $emails = array_column($users, 'email');
-        if(in_array($email, $emails)) {
-            $key = array_search($email, $emails);
-            $users [$key]['id'] = $key;
-            return $users[$key];
+        $sql = "SELECT `email`, `name`, `avatar` FROM `users` WHERE `email` = {$email}";
+        if ($user = $db->getData($sql)) {
+            return $user;
         } else {
-        return null;
+        return false;
+        }
     }
-}
 
 }
