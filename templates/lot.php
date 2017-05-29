@@ -13,9 +13,9 @@
         <div class="lot-item__content">
             <div class="lot-item__left">
                 <div class="lot-item__image">
-                    <img src="<?= $current_lot['img'] ?>" width="730" height="548" alt="Сноуборд">
+                    <img src="<?= $current_lot['img'] ?>" width="730" height="548" alt="Изображение лота">
                 </div>
-                <p class="lot-item__category">Категория: <span><?= $current_lot['category'] ?></span></p>
+                <p class="lot-item__category">Категория: <span><?= $categories[$current_lot['category']-1] ?></span></p>
                 <p class="lot-item__description">
                     <?= ($current_lot['message']) ?? "
                     Легкий маневренный сноуборд, готовый дать жару в любом парке, растопив
@@ -64,9 +64,9 @@
                     <table class="history__list">
                     <?php foreach ($bets as $bet): ?>
                         <tr class="history__item">
-                            <td class="history__name"><?= $bet['user'] ?></td>
+                            <td class="history__name"><?= $bet['user_name'] ?></td>
                             <td class="history__price"><?= $bet['value'] ?> р</td>
-                            <td class="history__time"><?= betTime($bet['dt_add']) ?></td>
+                            <td class="history__time"><?= betTime(strtotime($bet['dt_add'])) ?></td>
                         </tr>
                     <?php endforeach ?>
                     </table>
