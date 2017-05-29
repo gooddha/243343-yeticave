@@ -129,7 +129,7 @@ function addformValidation($input_array) {
         if (($timestamp = strtotime($input_array['lot-date'])) === false) {
             $result['errors']['lot-date'] = 'Введите корректное значение даты';
         } else {
-            if ($timestamp-time() >= 43200) {
+            if ($timestamp-date(d.m.Y, time()) >= 86400) {
                 $result['values']['lot-date'] = date('d.m.Y', $timestamp);
             } else {
                 $result['errors']['lot-date'] = 'Дата завершения должны быть больше текущей';
