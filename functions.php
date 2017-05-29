@@ -81,10 +81,10 @@ function postFilter($array) {
 function addformValidation($input_array) {
     $result = [];
 
-    if (!empty($input_array['lot-name'])) {
-        $result['values']['lot-name'] = $input_array['lot-name'];
+    if (!empty($input_array['title'])) {
+        $result['values']['title'] = $input_array['title'];
     } else {
-        $result['errors']['lot-name'] = 'Заполните наименование';
+        $result['errors']['title'] = 'Заполните наименование';
     }
 
     if ($input_array['category']) {
@@ -101,15 +101,15 @@ function addformValidation($input_array) {
         $result['errors']['message'] = 'Заполните описание лота';
     }
 
-    if (!empty($input_array['lot-rate'])) {
-        if (is_numeric($input_array['lot-rate'])) {
-            $result['values']['lot-rate'] = $input_array['lot-rate'];
+    if (!empty($input_array['price'])) {
+        if (is_numeric($input_array['price'])) {
+            $result['values']['price'] = $input_array['price'];
         } else {
-            $result['values']['lot-rate'] = $input_array['lot-rate'];
-            $result['errors']['lot-rate'] = 'Введите числовое значение';
+            $result['values']['price'] = $input_array['lot-rate'];
+            $result['errors']['price'] = 'Введите числовое значение';
         }
     } else {
-            $result['errors']['lot-rate'] = 'Укажите начальную цену';
+            $result['errors']['price'] = 'Укажите начальную цену';
     }
 
     if (!empty($input_array['lot-step'])) {
@@ -129,7 +129,7 @@ function addformValidation($input_array) {
         if (($timestamp = strtotime($input_array['lot-date'])) === false) {
             $result['errors']['lot-date'] = 'Введите корректное значение даты';
         } else {
-            if ($timestamp-date(d.m.Y, time()) >= 86400) {
+            if ($timestamp-date('d.m.Y', time()) >= 86400) {
                 $result['values']['lot-date'] = date('d.m.Y', $timestamp);
             } else {
                 $result['errors']['lot-date'] = 'Дата завершения должны быть больше текущей';

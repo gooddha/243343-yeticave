@@ -41,7 +41,7 @@ if (!isset($_SESSION['user'])) {
         foreach ($form['values'] as $key => $value) {
             $current_lot[$key] = $form['values'][$key];
         }
-
+        $current_lot['lot-date'] = date('Y.m.d', strtotime($current_lot['lot-date']));
         $current_lot ['id']= strval(findUser($_SESSION['user']['email'], $users)['id']+1);
 
         $sql = "INSERT INTO lots (`img`, `title`, `category`, `description`, `price`, `price_step`, `dt_end`, `seller`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";

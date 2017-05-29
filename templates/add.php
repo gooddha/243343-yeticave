@@ -14,10 +14,10 @@
 
 <!--Наименование-->
     <div class="form__container-two">
-      <div class="form__item <?= !empty($form['errors']['lot-name']) ? "form__item--invalid" : '' ?>">
+      <div class="form__item <?= !empty($form['errors']['title']) ? "form__item--invalid" : '' ?>">
         <label for="lot-name">Наименование</label>
-        <input id="lot-name" type="text" name="lot-name" placeholder="Введите наименование лота" value="<?= ($form['values']['lot-name'] ?? '' ) ?>" required>
-        <span class="form__error"><?= ($form['errors']['lot-name'] ?? '') ?></span>
+        <input id="lot-name" type="text" name="title" placeholder="Введите наименование лота" value="<?= ($form['values']['title'] ?? '' ) ?>" required>
+        <span class="form__error"><?= ($form['errors']['title'] ?? '') ?></span>
       </div>
 
 <!--Категория-->
@@ -63,10 +63,10 @@
 
 <!--Начальная цена -->
     <div class="form__container-three">
-      <div class="form__item form__item--small <?= !empty($form['errors']['lot-rate']) ? "form__item--invalid" : '' ?>">
+      <div class="form__item form__item--small <?= !empty($form['errors']['price']) ? "form__item--invalid" : '' ?>">
         <label for="lot-rate">Начальная цена</label>
-        <input id="lot-rate" type="number" name="lot-rate" placeholder="0" value="<?= ($form['values']['lot-rate'] ?? '' ) ?>" required>
-        <span class="form__error"><?= ($form['errors']['lot-rate'] ?? '') ?></span>
+        <input id="lot-rate" type="number" name="price" placeholder="0" value="<?= ($form['values']['price'] ?? '' ) ?>" required>
+        <span class="form__error"><?= ($form['errors']['price'] ?? '') ?></span>
       </div>
 
 <!--Шаг ставки -->
