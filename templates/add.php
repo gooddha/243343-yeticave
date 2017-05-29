@@ -44,7 +44,7 @@
     </div>
 
 <!--Изображение-->
-    <div class="form__item form__item--file"> <!-- form__item--uploaded -->
+    <div class="form__item form__item--file <?= !empty($form['errors']['img']) ? "form__item--invalid" : '' ?>"> <!-- form__item--uploaded -->
       <label>Изображение</label>
       <div class="preview">
         <button class="preview__remove" type="button">x</button>
@@ -57,6 +57,7 @@
         <label for="photo2">
           <span>+ Добавить</span>
         </label>
+        <span class="form__error"><?= ($form['errors']['img'] ?? '') ?></span>
       </div>
     </div>
 

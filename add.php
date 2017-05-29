@@ -29,7 +29,7 @@ if (!isset($_SESSION['user'])) {
     $main = includeTemplate('add.php', ['categories' => $categories, 'form' => $form]);
 
     if (!empty($_FILES['file']['name'])) {
-        $uploaddir = 'img/';
+        $uploaddir = 'img/uploads/lots/';
         $uploadfile = $uploaddir . 'img-' . rand(10000, 99999) . '.jpg';
         move_uploaded_file($_FILES['file']['tmp_name'], $uploadfile);
         $current_lot['img'] = $uploadfile;
@@ -42,7 +42,7 @@ if (!isset($_SESSION['user'])) {
             $current_lot[$key] = $form['values'][$key];
         }
 
-        $current_lot ['id']= strval(findUser($_SESSION['user']['email'], $users)['id']);
+        $current_lot ['id']= strval(findUser($_SESSION['user']['email'], $users)['id']+1);
 
         $sql = "INSERT INTO lots (`img`, `title`, `category`, `description`, `price`, `price_step`, `dt_end`, `seller`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         putData($link, $sql, $current_lot);

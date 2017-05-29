@@ -125,15 +125,30 @@ function addformValidation($input_array) {
 
 
     if (!empty($input_array['lot-date'])) {
+        $result['values']['lot-date'] = $input_array['lot-date'];
         if (($timestamp = strtotime($input_array['lot-date'])) === false) {
             $result['errors']['lot-date'] = 'Введите корректное значение даты';
-            $result['values']['lot-date'] = $input_array['lot-date'];
         } else {
-            $result['values']['lot-date'] = date('d.m.Y', $timestamp);
+            if ($timestamp-time() >= 43200) {
+                $result['values']['lot-date'] = date('d.m.Y', $timestamp);
+            } else {
+                $result['errors']['lot-date'] = 'Дата завершения должны быть больше текущей';
+            }
         }
     } else {
         $result['errors']['lot-date'] = 'Укажите дату завершения';
-        $result['values']['lot-date'] = $input_array['lot-date'];
+    }
+
+    if (!empty($_FILES['file']['name'])) {
+        $mime_types = [
+            'png' => 'image/png',
+            'jpg' => 'image/jpg',
+            'jpeg' => 'image/jpeg'
+        ];
+        $uploaded_file_type = mime_content_type($_FILES['file']['tmp_name']);
+        if (!in_array($uploaded_file_type, $mime_types)) {
+            $result['errors']['img'] = 'Тип загруженного файла не jpg, jpeg или png';
+        }
     }
 
     return $result;
@@ -206,6 +221,19 @@ function signupformValidation($input_array, $users) {
     if (empty($input_array['message'])) {
         $result['errors']['message'] = 'Введите контактные данные';
     }
+
+    if (!empty($_FILES['file']['name'])) {
+    $mime_types = [
+        'png' => 'image/png',
+        'jpg' => 'image/jpg',
+        'jpeg' => 'image/jpeg'
+    ];
+        $uploaded_file_type = mime_content_type($_FILES['file']['tmp_name']);
+        if (!in_array($uploaded_file_type, $mime_types)) {
+            $result['errors']['img'] = 'Тип загруженного файла не jpg, jpeg или png';
+        }
+    }
+
 
     return $result;
 }

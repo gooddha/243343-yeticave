@@ -19,7 +19,7 @@ $main = includeTemplate('sign-up.php', [
 ]);
 
 if (!empty($_FILES['file']['name'])) {
-    $uploaddir = 'img/';
+    $uploaddir = 'img/uploads/avatars/';
     $uploadfile = $uploaddir . 'img-' . rand(10000, 99999) . '.jpg';
     move_uploaded_file($_FILES['file']['tmp_name'], $uploadfile);
     $current_user['img'] = $uploadfile;

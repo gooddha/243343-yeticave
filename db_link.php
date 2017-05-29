@@ -9,7 +9,7 @@ $link = mysqli_connect("localhost", "root", "", "yeticave");
 //}
 
 //Заполнение массива категорий
-$sql = "SELECT name FROM categories";
+$sql = "SELECT name FROM categories ORDER BY `id` ASC";
 
 $data = getData($link, $sql);
 $categories = [];
@@ -21,13 +21,13 @@ foreach ($data as $value) {
 $sql = "SELECT email, name, password FROM users";
 $users = getData($link, $sql);
 
-//Заполнение массива лотов
-$sql = "SELECT *, name AS category FROM lots JOIN categories ON lots.category = categories.id";
+//Заполнение массива лотовname AS category  JOIN categories ON lots.category = categories.id
+$sql = "SELECT lots.* FROM lots";
 $lots = getData($link, $sql);
 
 
 //Заполнение массива ставок
-$sql = "SELECT *, name AS user FROM bets JOIN users ON bets.user = users.id";
+$sql = "SELECT bets.*, users.name AS user_name FROM bets JOIN users ON bets.user = users.id";
 $bets = getData($link, $sql);
 
 ?>
