@@ -8,6 +8,11 @@ include_once 'db_link.php';
 $search = isset($_GET['search']) ? trim($_GET['search']) : null;
 
 $results = [];
+$pages = 1;
+
+if (count($results) > 9) {
+    $pages = ceil(count($results) / 9);
+}
 
 if (!empty($search)) {
 

@@ -16,7 +16,7 @@ if ($bets_info) {
 
 if (!isset($_SESSION['user'])) {
     header("HTTP/1.0 403 Forbidden");
-    $main = includeTemplate('403.php');
+    $main = includeTemplate('403.php', ['categories' => $categories]);
 
 } else {
     $form = [];

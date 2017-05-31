@@ -11,14 +11,29 @@ $results = [];
 
 if (!empty($category)) {
 
-    $sql = 'SELECT lots.id, title, img, price, dt_end, categories.name FROM lots JOIN categories ON lots.category = categories.id WHERE category = ' . $category;
+    $sql = 'SELECT lots.id, title, img, price, dt_end, categories.name FROM lots '
+          . 'JOIN categories ON lots.category = categories.id WHERE category = ' . $category;
 
     $results = getData($link, $sql);
+    $pages = 1;
+
+    if (count($results) > 9) {
+        $pages = ceil(count($results) / 9);
+    }
 
     if (!empty($results)) {
-        $main = includeTemplate('all-lots.php', ['categories' => $categories, 'category' => $category, 'results' => $results]);
+        $main = includeTemplate('all-lots.php', [
+                'categories' => $categories,
+                'category' => $category,
+                'results' => $results,
+                'pages' => $pages
+        ]);
     } else {
-        $main = includeTemplate('empty-category.php', ['categories' => $categories, 'category' => $category, 'results' => $results]);
+        $main = includeTemplate('empty-category.php', [
+                'categories' => $categories,
+                'category' => $category,
+                'results' => $results
+        ]);
     }
 } else {
     $main = includeTemplate('404.php', [ 'categories' => $categories ]);
@@ -34,7 +49,7 @@ $footer = includeTemplate('footer.php', ['categories' => $categories]);
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <title>Результаты поиска</title>
+    <title>Лоты в категории <?= $results['0']['name'] ?></title>
     <link href="css/normalize.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
 </head>
