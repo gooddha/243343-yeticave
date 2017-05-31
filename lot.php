@@ -11,25 +11,14 @@ $bet = [];
 
 //Заполнение массива ставок
 $sql = 'SELECT bets.*, users.name AS user_name, lots.price, lots.price_step FROM bets '
-        . 'JOIN users ON bets.user = users.id '
-        . 'JOIN lots ON bets.lot = lots.id '
-        . 'WHERE lot = ' . $lot_id ;
+    . 'JOIN users ON bets.user = users.id '
+    . 'JOIN lots ON bets.lot = lots.id '
+    . 'WHERE lot = ' . $lot_id
+    . ' ORDER BY dt_add DESC';
 
 $bets = getData($link, $sql);
 $max_bet = 0;
 
-//if (!empty($_COOKIE['bets_info'])) {
-//    $bets_info = json_decode($_COOKIE['bets_info'], true);
-//}
-
-//if (!empty($_POST['cost']) && is_numeric($_POST['cost'])) {
-//    $bet = $_POST['cost'];
-//    $bet_time = time();
-//    $bets_info [] = ['bet' => $bet, 'bet_time' => $bet_time, 'lot_id' => $lot_id];
-//
-//    setcookie("bets_info", json_encode($bets_info));
-//
-//}
 if (!empty($bets)) {
     $max_bet = array_search(max(array_column($bets, 'value')), (array_column($bets, 'value')));
     $min_price = $bets[$max_bet]['value'] + $bets[$max_bet]['price_step'];
@@ -48,7 +37,7 @@ if (!empty($_POST)) {
 
         $current_bet = [
             'value' => $form['value'],
-            'user' => $_SESSION['user']['id']+1,
+            'user' => $_SESSION['user']['id'],
             'lot' => $lot_id
         ];
         $sql = "INSERT INTO bets (`value`, `user`, `lot`) VALUES (?, ?, ?)";

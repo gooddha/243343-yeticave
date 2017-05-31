@@ -8,15 +8,17 @@ include_once 'db_link.php';
 //if (!empty($_COOKIE['bets_info'])) {
 //    $bets_info = json_decode($_COOKIE['bets_info'], true);
 //}
-$sql = "SELECT bets.dt_add, value, lot FROM bets "
+$sql = "SELECT bets.dt_add, value, lot, dt_end, title, img, categories.name AS category FROM bets "
     . "JOIN lots ON bets.lot = lots.id "
-    . "WHERE user = " . $_SESSION['user']['id'];
+    . "JOIN categories ON lots.category = categories.id "
+    . "WHERE user = " . $_SESSION['user']['id']
+    . " ORDER BY `dt_add` DESC";
 $bets_info = getData($link, $sql);
 
 $header = includeTemplate('header.php');
 
 if (isset($bets_info) && isset($_SESSION['user'])) {
-    $main = includeTemplate('my-lots.php', ['categories' => $categories, 'bets_info' => $bets_info, 'lots' => $lots]);
+    $main = includeTemplate('my-lots.php', ['categories' => $categories, 'bets_info' => $bets_info]);
 } else {
     $main = includeTemplate('404.php', ['categories' => $categories]);
 }

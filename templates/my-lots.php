@@ -13,25 +13,24 @@
         <h2>Мои ставки</h2>
         <table class="rates__list">
             <?php foreach ($bets_info as $bets) :?>
-                <?php $lot_id = $bets['lot_id'] ?>
             <tr class="rates__item">
                 <td class="rates__info">
                     <div class="rates__img">
-                        <img src="<?= $lots[$lot_id]['img'] ?>" width="54" height="40" alt="Сноуборд">
+                        <img src="<?= $bets['img'] ?>" width="54" height="40" alt="Сноуборд">
                     </div>
-                    <h3 class="rates__title"><a href="lot.php?id=<?= $lot_id ?>"><?= $lots[$lot_id]['title'] ?></a></h3>
+                    <h3 class="rates__title"><a href="lot.php?id=<?= $bets['lot'] ?>"><?= $bets['title'] ?></a></h3>
                 </td>
                 <td class="rates__category">
-                    <?= $lots[$lot_id]['category'] ?>
+                    <?= $bets['category'] ?>
                 </td>
                 <td class="rates__timer">
-                    <div class="timer timer--finishing">07:13:34</div>
+                    <div class="timer timer--finishing">17:40:59<!--?= lotTimeRemaining($bets['dt_end']) ?--></div>
                 </td>
                 <td class="rates__price">
-                    <?= $bets['bet'] ?><span> р.</span>
+                    <?= $bets['value'] ?><span> р.</span>
                 </td>
                 <td class="rates__time">
-                    <?= betTime($bets['bet_time']) ?>
+                    <?= betTime(strtotime($bets['dt_add'])) ?>
                 </td>
             </tr>
 
