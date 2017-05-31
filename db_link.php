@@ -7,17 +7,7 @@ $link = mysqli_connect("localhost", "root", "", "yeticave");
 //} else {
 //    print("Соединение установлено");
 //}
+$sql = "SELECT id, name FROM categories ORDER BY `id` ASC";
 
-//Заполнение массива категорий
-$sql = "SELECT name FROM categories ORDER BY `id` ASC";
+$categories = getData($link, $sql);
 
-$data = getData($link, $sql);
-$categories = [];
-foreach ($data as $value) {
-    $categories [] = $value['name'];
-}
-
-
-//Заполнение массива лотов
-$sql = "SELECT lots.* FROM lots";
-$lots = getData($link, $sql);

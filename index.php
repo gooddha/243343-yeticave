@@ -4,6 +4,7 @@ session_start();
 
 include 'functions.php';
 include 'db_link.php';
+include 'winner.php';
 
 //$sql = "SELECT lots.* FROM lots";
 //$lots = getData($link, $sql);
@@ -13,6 +14,9 @@ include 'db_link.php';
 //foreach ($lots_list as $key => $value) {
 //    $lots[]
 //}
+
+$sql = "SELECT * FROM lots JOIN categories ON lots.category = categories.id WHERE dt_end >= CURRENT_DATE ";
+$lots = getData($link, $sql);
 
 ?>
 

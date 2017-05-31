@@ -5,6 +5,9 @@ session_start();
 include_once 'functions.php';
 include_once 'db_link.php';
 
+$sql = "SELECT * FROM lots JOIN categories ON lots.category = categories.id ";
+$lots = getData($link, $sql);
+
 $lot_id = isset($_GET['id']) ? $_GET['id'] : null;
 $current_lot = [];
 $bet = [];

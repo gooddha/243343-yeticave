@@ -9,6 +9,6 @@
         </ul>
     </nav>
     <section class="lot-item container" style=" margin-bottom: 25%;">
-        <h1 style="line-height: 1.5em; font-size: 3em; text-align: center;">Вы ввели пустой запрос.</h1>
+        <h1 style="line-height: 1.5em; font-size: 3em; text-align: center;">В данной категории нет открытых лотов.</h1>
     </section>
 </main>
