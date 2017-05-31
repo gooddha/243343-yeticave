@@ -8,7 +8,9 @@ include_once 'db_link.php';
 //if (!empty($_COOKIE['bets_info'])) {
 //    $bets_info = json_decode($_COOKIE['bets_info'], true);
 //}
-$sql = "SELECT * FROM bets WHERE user = " . $_SESSION['user']['id'];
+$sql = "SELECT bets.dt_add, value, lot FROM bets "
+    . "JOIN lots ON bets.lot = lots.id "
+    . "WHERE user = " . $_SESSION['user']['id'];
 $bets_info = getData($link, $sql);
 
 $header = includeTemplate('header.php');
