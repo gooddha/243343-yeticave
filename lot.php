@@ -48,7 +48,7 @@ if (!empty($_POST)) {
 
         $price['price'] = $form['value'];
         $where['id'] = $lot_id;
-        updateData($link, lots, $price, $where);
+        updateData($link, 'lots', $price, $where);
 
         header("Location: /my-lots.php");
     }

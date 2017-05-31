@@ -15,7 +15,7 @@
                 <div class="lot-item__image">
                     <img src="<?= $current_lot['img'] ?>" width="730" height="548" alt="Изображение лота">
                 </div>
-                <p class="lot-item__category">Категория: <span><?= $categories[$current_lot['category']-1] ?></span></p>
+                <p class="lot-item__category">Категория: <span><?= $current_lot['name'] ?></span></p>
                 <p class="lot-item__description">
                     <?= ($current_lot['message']) ?? "
                     Легкий маневренный сноуборд, готовый дать жару в любом парке, растопив

@@ -16,7 +16,7 @@ foreach ($lots_without_winner as $lot_without_winner) {
 
     $winner['winner'] = $max_bet['user'];
     $where['id'] = $lot_without_winner['id'];
-    updateData($link, lots, $winner, $where);
+    updateData($link,  'lots', $winner, $where);
 
 
     $sql = "SELECT email, name FROM users WHERE id = " . $winner['winner'];
