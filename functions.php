@@ -1,6 +1,7 @@
 <?php
 
-include 'mysql_helper.php';
+include_once 'mysql_helper.php';
+include_once 'db_link.php';
 
 function includeTemplate($template, $template_data = []) {
     $template = "templates/" . $template;
@@ -72,13 +73,15 @@ function betTime($bet_time) {
 function postFilter($array) {
     $result = [];
 
-    foreach ($array as $key => $value) {
-        $result[$key] =  strip_tags($value);
+    if (!empty($array)) {
+        foreach ($array as $key => $value) {
+            $result[$key] = strip_tags($value);
+        }
+        return $result;
     }
-    return $result;
 }
 
-function addformValidation($input_array) {
+function addlotformValidation($input_array) {
     $result = [];
 
     if (!empty($input_array['title'])) {
@@ -123,14 +126,14 @@ function addformValidation($input_array) {
         $result['errors']['lot-step'] = 'Укажите шаг ставки';
     }
 
-
     if (!empty($input_array['lot-date'])) {
         $result['values']['lot-date'] = $input_array['lot-date'];
-        if (($timestamp = strtotime($input_array['lot-date'])) === false) {
+        if (($end_time = strtotime($input_array['lot-date'])) === false) {
             $result['errors']['lot-date'] = 'Введите корректное значение даты';
         } else {
-            if ($timestamp-date('d.m.Y', time()) >= 86400) {
-                $result['values']['lot-date'] = date('d.m.Y', $timestamp);
+            $today = strtotime("today");
+            if (($end_time - $today) >= 86400) {
+                $result['values']['lot-date'] = date('d.m.Y', $end_time);
             } else {
                 $result['errors']['lot-date'] = 'Дата завершения должны быть больше текущей';
             }
@@ -154,6 +157,23 @@ function addformValidation($input_array) {
     return $result;
 }
 
+function addbetformValidation($bet, $min_price) {
+    $result = [];
+    if (!empty($bet['cost'])) {
+        $result['value'] = intval($bet['cost']);
+        if (is_numeric($bet['cost'])) {
+            if ($bet['cost'] < $min_price) {
+                $result['error'] = 'Введите число, больше мин. ставки';
+            }
+        } else {
+            $result['error'] = 'Введите число';
+        }
+    } else {
+        $result['error'] = 'Введите ставку';
+    }
+    return $result;
+}
+
 function loginformValidation($input_array, $users) {
     $result = [];
     $result['values']['email'] = $input_array['email'];
@@ -164,7 +184,7 @@ function loginformValidation($input_array, $users) {
     } else  {
         if (filter_var($input_array['email'], FILTER_VALIDATE_EMAIL)) {
 
-            if ($user = findUser($input_array['email'], $users)) {
+            if ($user = findUser($input_array['email'])) {
 
                 if (password_verify($input_array['password'], $user['password'])) {
                     $_SESSION['user'] = $user;
@@ -202,7 +222,7 @@ function signupformValidation($input_array, $users) {
     } else  {
         if (filter_var($input_array['email'], FILTER_VALIDATE_EMAIL)) {
 
-            if ($user = findUser($input_array['email'], $users)) {
+            if ($user = findUser($input_array['email'])) {
                 $result['errors']['email'] = 'Логин уже зарегистрирован';
             }
         } else {
@@ -238,7 +258,11 @@ function signupformValidation($input_array, $users) {
     return $result;
 }
 
-function findUser($email, $users) {
+function findUser($email) {
+    global $link;
+    $sql = "SELECT email, name, password FROM users";
+    $users = getData($link, $sql);
+
     $emails = array_column($users, 'email');
     if(in_array($email, $emails)) {
         $key = array_search($email, $emails);
@@ -284,10 +308,11 @@ function putData($link, $sql, $sql_data = []) {
 function updateData($link, $table, $sql_data = [], $where = []) {
 
     $placeholders = [];
-
+    $data = [];
 
     foreach ($sql_data as $key => $value) {
         $placeholders []= "`{$key}` = ?";
+        $data []= $value;
     }
 
     $placeholders = implode(', ', $placeholders);
@@ -305,5 +330,3 @@ function updateData($link, $table, $sql_data = [], $where = []) {
         return $result;
     }
 }
-
-?>

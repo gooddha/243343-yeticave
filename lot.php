@@ -2,23 +2,64 @@
 
 session_start();
 
-include 'functions.php';
-include 'db_link.php';
+include_once 'functions.php';
+include_once 'db_link.php';
 
 $lot_id = isset($_GET['id']) ? $_GET['id'] : null;
 $current_lot = [];
+$bet = [];
 
-if (!empty($_COOKIE['bets_info'])) {
-    $bets_info = json_decode($_COOKIE['bets_info'], true);
+//Заполнение массива ставок
+$sql = 'SELECT bets.*, users.name AS user_name, lots.price, lots.price_step FROM bets '
+        . 'JOIN users ON bets.user = users.id '
+        . 'JOIN lots ON bets.lot = lots.id '
+        . 'WHERE lot = ' . $lot_id ;
+
+$bets = getData($link, $sql);
+$max_bet = 0;
+
+//if (!empty($_COOKIE['bets_info'])) {
+//    $bets_info = json_decode($_COOKIE['bets_info'], true);
+//}
+
+//if (!empty($_POST['cost']) && is_numeric($_POST['cost'])) {
+//    $bet = $_POST['cost'];
+//    $bet_time = time();
+//    $bets_info [] = ['bet' => $bet, 'bet_time' => $bet_time, 'lot_id' => $lot_id];
+//
+//    setcookie("bets_info", json_encode($bets_info));
+//
+//}
+if (!empty($bets)) {
+    $max_bet = array_search(max(array_column($bets, 'value')), (array_column($bets, 'value')));
+    $min_price = $bets[$max_bet]['value'] + $bets[$max_bet]['price_step'];
+} else {
+    $sql = "SELECT price FROM lots WHERE id = {$lot_id}";
+    $max_bet = getData($link, $sql);
+    $min_price = $max_bet['0']['price'];
 }
 
-if (!empty($_POST['cost']) && is_numeric($_POST['cost'])) {
-    $bet = $_POST['cost'];
-    $bet_time = time();
-    $bets_info [] = ['bet' => $bet, 'bet_time' => $bet_time, 'lot_id' => $lot_id];
+$current_bet = [];
 
-    setcookie("bets_info", json_encode($bets_info));
-    header("Location: /my-lots.php");
+if (!empty($_POST)) {
+    $form =  addbetformValidation(postFilter($_POST), $min_price);
+
+    if (empty($form['error']) && !empty($form['value'])) {
+
+        $current_bet = [
+            'value' => $form['value'],
+            'user' => $_SESSION['user']['id']+1,
+            'lot' => $lot_id
+        ];
+        $sql = "INSERT INTO bets (`value`, `user`, `lot`) VALUES (?, ?, ?)";
+        putData($link, $sql, $current_bet);
+
+//        $sql = "UPDATE lots SET price = " . {$form['value']};
+        $price = $form['value'];
+        updateData($link, lots, $form, "id = " . $lot_id);
+
+        header("Location: /my-lots.php");
+    }
 }
 
 if ($bets_info) {
@@ -27,13 +68,17 @@ if ($bets_info) {
     $user_lots = [];
 }
 
-if ($lot_id !== null && isset($lots[$lot_id])) {
-    $current_lot = $lots[$lot_id];
+$lots_ids = array_column($lots, 'id');
+$current_lot_id = array_search($lot_id, $lots_ids);
+
+if ($lot_id !== null && isset($lots[$current_lot_id])) {
+    $current_lot = $lots[$current_lot_id];
     $main = includeTemplate('lot.php', [
         'categories' => $categories,
         'current_lot' => $current_lot,
-        'lots' => $lots,
+        'form' => $form,
         'bets' => $bets,
+        'min_price' => $min_price,
         'lot_id' => $lot_id,
         'user_lots' => $user_lots
     ]);

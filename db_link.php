@@ -17,17 +17,7 @@ foreach ($data as $value) {
     $categories [] = $value['name'];
 }
 
-//Заполнение массива пользователей
-$sql = "SELECT email, name, password FROM users";
-$users = getData($link, $sql);
 
-//Заполнение массива лотовname AS category  JOIN categories ON lots.category = categories.id
+//Заполнение массива лотов
 $sql = "SELECT lots.* FROM lots";
 $lots = getData($link, $sql);
-
-
-//Заполнение массива ставок
-$sql = "SELECT bets.*, users.name AS user_name FROM bets JOIN users ON bets.user = users.id";
-$bets = getData($link, $sql);
-
-?>

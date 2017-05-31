@@ -5,6 +5,15 @@ session_start();
 include 'functions.php';
 include 'db_link.php';
 
+//$sql = "SELECT lots.* FROM lots";
+//$lots = getData($link, $sql);
+
+//$lots= [];
+//
+//foreach ($lots_list as $key => $value) {
+//    $lots[]
+//}
+
 ?>
 
 <!DOCTYPE html>

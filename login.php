@@ -13,8 +13,7 @@ if (!empty($_POST)) {
 
 $main = includeTemplate('login.php', [
     'categories' => $categories,
-    'form' => $form,
-    'users' => $users
+    'form' => $form
 ]);
 
 ?>

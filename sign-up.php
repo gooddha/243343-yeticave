@@ -2,8 +2,8 @@
 
 session_start();
 
-include 'functions.php';
-include 'db_link.php';
+include_once 'functions.php';
+include_once 'db_link.php';
 
 $form = [];
 $current_user = [];
@@ -14,8 +14,7 @@ if (!empty($_POST)) {
 
 $main = includeTemplate('sign-up.php', [
     'categories' => $categories,
-    'form' => $form,
-    'users' => $users
+    'form' => $form
 ]);
 
 if (!empty($_FILES['file']['name'])) {

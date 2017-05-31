@@ -2,8 +2,8 @@
 
 session_start();
 
-include 'functions.php';
-include 'db_link.php';
+include_once 'functions.php';
+include_once 'db_link.php';
 
 if (!empty($_COOKIE['bets_info'])) {
     $bets_info = json_decode($_COOKIE['bets_info'], true);
