@@ -54,9 +54,9 @@ if (!empty($_POST)) {
         $sql = "INSERT INTO bets (`value`, `user`, `lot`) VALUES (?, ?, ?)";
         putData($link, $sql, $current_bet);
 
-//        $sql = "UPDATE lots SET price = " . {$form['value']};
-        $price = $form['value'];
-        updateData($link, lots, $form, "id = " . $lot_id);
+        $price['price'] = $form['value'];
+        $where['id'] = $lot_id;
+        updateData($link, lots, $price, $where);
 
         header("Location: /my-lots.php");
     }

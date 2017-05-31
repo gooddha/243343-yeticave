@@ -254,19 +254,17 @@ function signupformValidation($input_array, $users) {
         }
     }
 
-
     return $result;
 }
 
 function findUser($email) {
     global $link;
-    $sql = "SELECT email, name, password FROM users";
+    $sql = "SELECT id, email, name, password FROM users";
     $users = getData($link, $sql);
 
     $emails = array_column($users, 'email');
     if(in_array($email, $emails)) {
         $key = array_search($email, $emails);
-        $users [$key]['id'] = $key;
         return $users[$key];
     } else {
         return null;
@@ -322,7 +320,7 @@ function updateData($link, $table, $sql_data = [], $where = []) {
     $stmt = db_get_prepare_stmt($link, $sql, $data);
     mysqli_stmt_execute($stmt);
 
-    $result = mysqli_stmt_affected_rows($link);
+    $result = mysqli_stmt_affected_rows($stmt);
 
     if (!$result) {
         return false;
