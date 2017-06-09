@@ -12,9 +12,11 @@ $results = [];
 if (!empty($category)) {
 
     $sql = 'SELECT lots.id, title, img, price, dt_end, categories.name FROM lots '
-          . 'JOIN categories ON lots.category = categories.id WHERE category = ' . $category;
-
-    $results = getData($link, $sql);
+//        . 'JOIN categories ON lots.category = categories.id WHERE category = ' . $category;
+          . 'JOIN categories ON lots.category = categories.id WHERE category = ?';
+    $sql_data []=  $category;
+//  $results = getData($link, $sql, $sql_data);
+    $results = getData($link, $sql, $sql_data);
     $pages = 1;
 
     if (count($results) > 9) {

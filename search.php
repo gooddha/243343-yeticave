@@ -17,10 +17,10 @@ if (count($results) > 9) {
 if (!empty($search)) {
 
     $sql = 'SELECT id, title, img, price, dt_end FROM lots '
-        . 'WHERE title LIKE "%' . $search . '%" '
-        . 'OR description LIKE "%' . $search . '%" ';
-
-    $results = getData($link, $sql);
+        . 'WHERE title LIKE ? '
+        . 'OR description LIKE ?';
+    $sql_data = ["%$search%", "%$search%"];
+    $results = getData($link, $sql, $sql_data);
     if (!empty($results)) {
         $main = includeTemplate('search.php', ['categories' => $categories, 'search' => $search, 'results' => $results]);
     } else {

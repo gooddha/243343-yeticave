@@ -16,18 +16,25 @@ $bet = [];
 $sql = 'SELECT bets.*, users.name AS user_name, lots.price, lots.price_step FROM bets '
     . 'JOIN users ON bets.user = users.id '
     . 'JOIN lots ON bets.lot = lots.id '
-    . 'WHERE lot = ' . $lot_id
+//  . 'WHERE lot = ' . $lot_id
+    . 'WHERE lot = ?'
     . ' ORDER BY dt_add DESC';
 
-$bets = getData($link, $sql);
+$sql_data []= $lot_id;
+
+//$bets = getData($link, $sql);
+$bets = getData($link, $sql, $sql_data);
+
 $max_bet = 0;
 
 if (!empty($bets)) {
     $max_bet = array_search(max(array_column($bets, 'value')), (array_column($bets, 'value')));
     $min_price = $bets[$max_bet]['value'] + $bets[$max_bet]['price_step'];
 } else {
-    $sql = "SELECT price FROM lots WHERE id = {$lot_id}";
-    $max_bet = getData($link, $sql);
+//  $sql = "SELECT price FROM lots WHERE id = {$lot_id}";
+    $sql = "SELECT price FROM lots WHERE id = ?";
+//  $max_bet = getData($link, $sql);
+    $max_bet = getData($link, $sql, $sql_data);
     $min_price = $max_bet['0']['price'];
 }
 
